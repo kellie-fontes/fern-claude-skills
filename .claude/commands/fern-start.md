@@ -34,3 +34,24 @@ Ground rules for this session:
 Confirm you understand by summarizing the project in one sentence
 and listing the 12 steps.
 ```
+
+---
+
+## Step order — run these in sequence
+
+| Step | Command | What it does |
+|---|---|---|
+| 0 | `/fern-start` | **This file — run once before anything else** |
+| 1 | `/fern-kickoff` | Architecture design |
+| 2 | `/fern-api` | Build the MuleSoft mock API |
+| 3 | `/fern-deploy` | Deploy to CloudHub |
+| 4 | `/fern-wire` | Wire MuleSoft to Agentforce |
+| 4B | `/fern-agent` | Build the agent + wire actions |
+| 5 | `/fern-apex` | Apex controllers + Custom Setting + Remote Sites |
+| 6 | `/fern-site` | Experience Cloud site + Chat UI + Design |
+| 7 | `/fern-form` | Custom object + log form + real-time polling |
+| 8 | `/fern-dashboard` | Internal dashboard |
+| 9 | `/fern-debug` | Debugging prompts (use any time) |
+| 10 | `/fern-prep` | Demo prep + token refresh (run morning of every demo) |
+
+**Tip:** Complete and test each step before running the next one.
