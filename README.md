@@ -18,6 +18,7 @@ Then open Claude Code and type `/` to see all skills listed.
 
 | Command | What it does |
 |---|---|
+| `/fern-start` | **Run this first** — sets context and ground rules for the session |
 | `/fern-kickoff` | Design the full architecture before writing any code |
 | `/fern-api` | Build the MuleSoft mock API in Anypoint Code Builder |
 | `/fern-deploy` | Deploy the Mule app to CloudHub Sandbox |
