@@ -4,63 +4,69 @@ Create the Experience Cloud site, configure guest user permissions, and build th
 
 ## Instructions
 
-Run this in Claude Code from inside your Salesforce DX project directory. Replace all [bracketed values] with your own before running.
+Run this in Claude Code from inside your Salesforce DX project directory.
+Claude will read `fern-context.md` automatically — no manual value replacement needed.
 
 ---
 
 ```
+Read fern-context.md from the project directory to load all context values.
+
 I need an Experience Cloud site with a custom LWC chat component
 that lets guest users (no login required) talk to my Agentforce agent.
 
 1. Experience Cloud site setup:
    - Create a new site with guest user access enabled
    - Grant the guest user profile access to:
-     [AgentController] and [LogController] Apex classes
+     {agent_controller} and {log_controller} Apex classes
    - Add the chat LWC to a site page in Experience Builder
 
-2. Build an LWC called [componentName] that:
-   - On load, calls getPatientInfo() to get the persona's name
-     and opens with a personalized greeting from the agent
-   - Sends messages to Agentforce via [AgentController].sendMessage,
+2. Build an LWC called {chat_component} that:
+   - On load, calls getPersonaInfo() to get the persona's name
+     and opens with a personalized greeting from {agent_name}
+   - Sends messages to Agentforce via {agent_controller}.sendMessage,
      maintaining sessionId across turns
-   - Detects trigger phrases [list] and instead of calling the agent,
-     shows an inline [form component] and suppresses further input
+   - Detects trigger phrases ({trigger_phrases}) and instead of
+     calling the agent, shows an inline {form_component} and
+     suppresses further input
    - Renders agent responses as formatted HTML: bold (**text**),
      bullet lists, numbered lists, inline images and video links
-     for known product/medication names
+     for known product/item names
    - Shows a typing indicator while waiting for a response
    - Scrolls to the latest message automatically
-   - Receives submitted events from [form component] with a logId
+   - Receives submitted events from {form_component} with a logId
      and starts polling for status confirmation
 
 3. Visual design — two distinct looks:
 
-   [Persona]-facing chat UI:
-   - Warm, approachable palette built around [primary color]
-   - Gradient header with agent avatar as inline SVG (no static resources)
-   - Patient messages right-aligned in brand color, agent messages
+   {persona_role}-facing chat UI:
+   - Warm, approachable palette built around {primary_color}
+   - Gradient header with {agent_name} avatar as inline SVG
+     (no static resources)
+   - Persona messages right-aligned in brand color, agent messages
      left-aligned on white with soft shadow
    - Rounded corners: 16px containers, 6-10px buttons and inputs
    - Typing indicator: 3 animated dots bouncing in brand color
    - All form elements use brand color for borders and focus states
 
    Internal dashboard:
-   - Clinical, data-dense palette built around [secondary color]
+   - Clinical, data-dense palette built around {secondary_color}
    - No SLDS base components — plain HTML + custom CSS throughout
    - Use inline SVGs for all icons — no static resources
    - Define brand palette as CSS comments at top of each file
      so re-skinning for a new industry takes minutes
 ```
 
-## FertilityConnect values (working example)
-- AgentController = FertilityAgentController
-- LogController = MedicationLogController
-- componentName = fertilityChat
+---
+
+## FertilityConnect values (reference example)
+- agent_controller = FertilityAgentController, log_controller = MedicationLogController
+- chat_component = fertilityChat, agent_name = Fern
 - trigger phrases = "log my dose", "log a dose", "i took"
-- form component = medicationDoseForm
-- Patient palette: primary = #7c4d8e (purple), dark = #5a3570, light = #a06bb5, background = #f8f4f0
-- Internal palette: primary = #1a3a5c (navy), mid = #2d6a9f, action = #27ae60, danger = #e74c3c
-- Shared accent: #7c4d8e on both sides — visual thread connecting patient and clinical views
+- form_component = medicationDoseForm
+- Persona palette: primary = #7c4d8e (purple)
+- Internal palette: primary = #1a3a5c (navy)
 
 ## Key lesson
-Guest users can't call api.salesforce.com directly — always route through an Apex controller using an admin OAuth token in a Custom Setting.
+Guest users can't call api.salesforce.com directly — always route through an Apex controller
+using an admin OAuth token in a Custom Setting.

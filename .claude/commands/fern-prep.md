@@ -6,10 +6,10 @@ Everything to check the morning of any demo.
 
 ## Demo Script Prompt
 
-Paste this into Claude Code the morning of your demo:
-
 ```
-I'm demoing this to [audience] in [time]. Here's what works and
+Read fern-context.md from the project directory to load all context values.
+
+I'm demoing {agent_name} to [audience] in [time]. Here's what works and
 what's broken: [list].
 
 Give me:
@@ -24,8 +24,8 @@ Give me:
 
 | What | URL |
 |---|---|
-| Chatbot (persona view) | https://[your-subdomain].my.site.com/[site-path] |
-| Internal Dashboard | https://[your-org].lightning.force.com/apex/[PageName] |
+| Chatbot ({persona_role} view) | https://{org_domain}.my.site.com/[site-path] |
+| Internal Dashboard | https://[your-org].lightning.force.com/apex/{vf_page_name} |
 | Agentforce Agent Builder | https://[your-org].lightning.force.com → Setup → Agents |
 | Anypoint Runtime Manager | https://anypoint.mulesoft.com → Runtime Manager → Applications |
 
@@ -37,16 +37,22 @@ Give me:
 
 ## Admin Token Refresh
 
-The chatbot authenticates to Agentforce using a Salesforce admin session token stored in a Custom Setting. **It expires when you log out or after inactivity — refresh it every morning before a demo.**
+The chatbot authenticates to Agentforce using a Salesforce admin session token stored in a Custom Setting.
+**It expires when you log out or after inactivity — refresh it every morning before a demo.**
 
 Save the script below as `token-refresh.sh` in your project. Run it once and you're done.
 
+The script reads `fern-context.md` to populate `custom_setting` and `org_alias` automatically.
+If you haven't set those values yet, add them before running.
+
 ```bash
 #!/bin/bash
-# Usage: bash token-refresh.sh [your-org-alias]
-# Find your alias by running: sf org list
+# Usage: bash token-refresh.sh
+# Reads org_alias and custom_setting from fern-context.md
 
-ALIAS=$1
+ALIAS=$(grep '^org_alias:' fern-context.md | awk -F': ' '{print $2}' | xargs)
+CUSTOM_SETTING=$(grep '^custom_setting:' fern-context.md | awk -F': ' '{print $2}' | xargs)
+
 sf org login web --target-org $ALIAS
 
 TOKEN=$(sf org display --target-org $ALIAS --json \
@@ -56,18 +62,18 @@ PART1="${TOKEN:0:255}"
 PART2="${TOKEN:255}"
 
 sf apex run --target-org $ALIAS << EOF
-FertilityAgentConfig__c cfg = FertilityAgentConfig__c.getOrgDefaults();
+${CUSTOM_SETTING} cfg = ${CUSTOM_SETTING}.getOrgDefaults();
 cfg.AdminToken__c = '${PART1}';
 cfg.AdminToken2__c = '${PART2}';
 upsert cfg;
 EOF
 
-echo "Token refreshed successfully."
+echo "Token refreshed for ${ALIAS} (${CUSTOM_SETTING})."
 ```
 
 **How to run:**
 ```
-bash token-refresh.sh fertility-demo
+bash token-refresh.sh
 ```
 
 ---
@@ -80,7 +86,7 @@ bash token-refresh.sh fertility-demo
 - [ ] If the app is sleeping (Micro worker idles), send one request to wake it (~10 sec first response)
 
 **Salesforce**
-- [ ] Run `bash token-refresh.sh [alias]` to refresh the admin token
+- [ ] Run `bash token-refresh.sh` to refresh the admin token
 - [ ] Open the chatbot in an **incognito window** — type "Give me my summary" and confirm it responds
 - [ ] Open the internal dashboard in a separate tab (logged in as admin)
 - [ ] Submit a test log from the chatbot and confirm it appears in the dashboard queue

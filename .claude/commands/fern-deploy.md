@@ -4,32 +4,40 @@ Deploy the locally-built Mule app to CloudHub Sandbox so Salesforce has a live U
 
 ## Instructions
 
-Run this in Claude Code from inside your Mule project directory. Replace all [bracketed values] with your own before running.
+Run this in Claude Code from inside your Mule project directory.
+Claude will read `fern-context.md` automatically — no manual value replacement needed.
 
 ---
 
 ```
+Read fern-context.md from the project directory to load all context values.
+
 My MuleSoft app is built and running locally in Anypoint Code Builder.
 I need to deploy it to CloudHub Sandbox so Salesforce can call it.
 
 Walk me through:
 1. Verifying the pom.xml cloudHubDeployment config is correct —
-   environment name, applicationName, workerType, region,
-   businessGroupId, and connected app credentials
+   environment name, applicationName ({app_name}), workerType,
+   region ({region}), businessGroupId ({business_group_id}),
+   and connected app credentials
 2. The exact Maven command to deploy
 3. How to confirm the app is running in Anypoint Runtime Manager
-4. What the public CloudHub URL will be (pattern:
-   https://[app-name].[region-code].cloudhub.io)
+4. What the public CloudHub URL will be
 5. How to test the deployed endpoint with a curl call
    before wiring Salesforce to it
 
-My app name is [app-name], environment is [environment],
-businessGroupId is [id].
+After confirming the app is running, write the exact CloudHub URL
+directly into the cloudhub_url field in fern-context.md — do not
+ask the user to paste it manually. The URL pattern is:
+https://{app_name}.us-e1.cloudhub.io/api/v1 (adjust region code
+if region is not us-east-1).
 ```
 
-## FertilityConnect values (working example)
+---
+
+## FertilityConnect values (reference example)
 - app-name = fertility-connect-emr
 - environment = Sandbox
 - base path = /api/v1
-- public URL = http://fertility-connect-emr.us-e1.cloudhub.io/api/v1
+- public URL = https://fertility-connect-emr.us-e1.cloudhub.io/api/v1
 - test endpoint = GET /api/v1/patients/P001

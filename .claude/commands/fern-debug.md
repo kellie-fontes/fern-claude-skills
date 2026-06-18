@@ -101,3 +101,51 @@ Here is the relevant file: [paste file]. What's wrong and how do I fix it?
 This DataWeave expression throws "[paste error]" at runtime.
 The payload looks like [paste sample]. Fix it.
 ```
+
+---
+
+## 13. Agent Gives Generic Responses Instead of Calling Functions
+```
+My Agentforce agent routes correctly but responds generically instead of
+calling my custom plugin functions. Why?
+```
+**Root cause:** Agentforce auto-injects `EmployeeCopilot__AnswerQuestionsWithKnowledge` as a new
+`GenAiPlannerFunctionDef` on every activation. This system topic wins routing over your plugin.
+Fix: after every deactivate→activate cycle, query `GenAiPlannerFunctionDef` scoped to your planner
+and delete every record except the one linking to your plugin.
+
+---
+
+## 14. Agent Asks "Which [thing] Are You Referring To?" Instead of Calling the API
+```
+My agent says "Could you clarify which [X] you're referring to?" instead of
+calling the function. The function requires a [paramName] path parameter.
+```
+**Root cause:** No `input/schema.json` — the LLM doesn't know the value to pass and falls back
+to asking the user. Add an `input/schema.json` to the GenAiFunction with `isUserInput: true` and
+a description like "Always use [value]. Never ask the user." See `/fern-agent` key lessons for
+the exact schema pattern.
+
+---
+
+## 15. 412 "Invalid Config" on Agent Activation
+```
+My agent activation fails with 412 Precondition Failed: Invalid Config.
+```
+**Root cause:** `copilotAction:isUserInput: false` on a `required` field in an input schema
+is invalid for ExternalService GenAiFunctions. Change it to `isUserInput: true`. If the error
+persists after that change, remove the input schema entirely and redeploy — then re-add it
+with `isUserInput: true` in a fresh deploy.
+
+---
+
+## 16. Agent Function Calls Fail Silently (result: [] with no error)
+```
+My agent routes to the right topic, says it's looking something up, but
+returns empty results with no error message. The API works when called directly.
+```
+**Root cause:** External Credential principal type is `NamedPrincipal` instead of `Anonymous`.
+The Agentforce bot user has no stored credential value, so callouts fail silently.
+Fix: in your `.externalCredential-meta.xml`, change `parameterType` from `NamedPrincipal`
+to `Anonymous`, redeploy, then ensure the bot user's permission set grants access to the
+Anonymous principal.

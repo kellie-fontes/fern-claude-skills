@@ -24,12 +24,16 @@ Ground rules for this session:
 2. After completing each step, stop and wait for me to confirm it
    is working before we move on.
 3. If you need information from a previous step (like a URL or ID),
-   ask me for it — do not assume or invent values.
+   look for it in fern-context.md in the project directory. If it
+   is not there yet, ask me — do not assume or invent values.
 4. Keep responses focused on the task at hand. If you see something
    outside the current step that could be improved, note it briefly
    but do not act on it unless I ask.
 5. When a step is done, say "Step [N] complete — ready for Step [N+1]
    when you are."
+
+At the start of each step, read fern-context.md to load all
+industry-specific values before generating any code or metadata.
 
 Confirm you understand by summarizing the project in one sentence
 and listing the 12 steps.
@@ -42,7 +46,7 @@ and listing the 12 steps.
 | Step | Command | What it does |
 |---|---|---|
 | 0 | `/fern-start` | **This file — run once before anything else** |
-| 1 | `/fern-kickoff` | Architecture design |
+| 1 | `/fern-kickoff` | Architecture design + writes fern-context.md |
 | 2 | `/fern-api` | Build the MuleSoft mock API |
 | 3 | `/fern-deploy` | Deploy to CloudHub |
 | 4 | `/fern-wire` | Wire MuleSoft to Agentforce |
@@ -55,3 +59,6 @@ and listing the 12 steps.
 | 10 | `/fern-prep` | Demo prep + token refresh (run morning of every demo) |
 
 **Tip:** Complete and test each step before running the next one.
+
+**To adapt for a new industry:** Edit `fern-context.md` in your project
+directory and re-run any step — all values are read from that file.

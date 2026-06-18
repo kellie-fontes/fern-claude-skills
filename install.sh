@@ -14,6 +14,7 @@ mkdir -p "$SKILLS_DIR"
 skills=(
   "fern-start.md"
   "fern-kickoff.md"
+  "fern-context.md"
   "fern-api.md"
   "fern-deploy.md"
   "fern-wire.md"
