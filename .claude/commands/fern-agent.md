@@ -64,6 +64,67 @@ it manually.
 
 ---
 
+## Step 4C — Wire Actions in Agent Builder UI (required, cannot be done via metadata)
+
+After deploying the bot metadata, you MUST wire the actions through the Agent Builder UI.
+Metadata-deployed GenAiFunctions do NOT show Inputs/Outputs in Agent Builder and the agent
+will not call them. The UI wiring step creates the inline `externalServiceOperation` format
+that Agentforce actually uses.
+
+**Steps:**
+
+1. Go to Setup → Agents → open your agent → click **Open in Agent Builder**
+2. In the left panel, click **Subagents** → **New** → **New Subagent**
+3. Give the subagent a name (e.g. "Loyalty Member Support") and a short description of its scope
+4. On step 3 of the wizard, if it says "No checklist steps returned" — that's fine, ignore it and save
+5. In the subagent, go to **This Subagent's Actions** tab → **New** → **Add from Asset Library**
+6. Set **Reference Action Type = API**, **Reference Action Category = External Services** (not MuleSoft — the category label varies by org)
+7. Select each of your External Service actions one at a time and add them
+8. For each action: set a clear description ("Use this when the customer asks about their loyalty points...") and uncheck **Collect data from user** for the `customerId` parameter
+
+**Assign the agent user:**
+
+9. Click **Settings** (gear icon, top right of Agent Builder)
+10. Find the **User** field and assign an active Salesforce user
+    - The user must have an active Salesforce license
+    - If your dedicated agent user is rejected, use any licensed standard user in the org as a fallback
+    - The agent runs all MuleSoft callouts as this user — they need the External Credential permission set (see below)
+
+**Activate:**
+
+11. Click **Activate** — if you see "Configuration Issues Detected / We couldn't load the checklist", click **Ignore & Activate**
+12. After activation, note the bot ID from the URL (`/AiCopilot/copilotStudio.app#/cop/0Xx...`) and update `RetailAgentController.cls`
+
+---
+
+## Step 4D — Grant the Agent User External Credential Access
+
+The agent user runs every MuleSoft callout. Without the right permission set, callouts succeed
+in Apex (admin user) but silently fail when Agentforce executes them — the agent says
+"I couldn't retrieve your information" with no error in the logs.
+
+**Fix:**
+
+1. Find your External Credential permission set (e.g. `Retail_CRM_API_Access` or `FertilityEMR_API_Access`)
+2. Make sure it does NOT have `viewAllFields: true` on any object — this blocks assignment to EinsteinServiceAgent users
+3. Assign the permission set to the agent user via Apex:
+   ```apex
+   PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = 'Your_API_Access_PS' LIMIT 1];
+   User u = [SELECT Id FROM User WHERE Username = 'your_agent_user@org.ext' LIMIT 1];
+   insert new PermissionSetAssignment(AssigneeId = u.Id, PermissionSetId = ps.Id);
+   ```
+4. Test the callout directly from Apex using `callout:YourNamedCredential/path` — must return 200 before testing via chatbot
+
+**Named Credential HTTP vs HTTPS:**
+- CloudHub apps deployed with default config only listen on HTTP, not HTTPS
+- Salesforce Named Credentials default to HTTPS — this causes 502 on all callouts
+- If `callout:YourNC/path` returns 502 but `curl http://your-cloudhub-url/path` returns 200,
+  the mismatch is HTTP vs HTTPS
+- Either: update the Named Credential URL to `http://` in Setup → Named Credentials → Edit,
+  or add an HTTPS listener to your MuleSoft app
+
+---
+
 ## FertilityConnect values (reference example)
 - agent_label = Fertility Support Agent 2
 - company_name = Bloom Fertility
@@ -105,3 +166,7 @@ it manually.
   Always use `isUserInput: true`.
 - Deploying bot metadata (`.bot-meta.xml`, `.botVersion-meta.xml`) deactivates the agent — re-activate
   in Agent Builder after every bot deploy. Avoid redeploying bot files unless necessary.
+- **Standalone GenAiFunction files never work for action routing** — metadata-deployed functions linked
+  to a plugin do NOT show Inputs/Outputs in Agent Builder. Only actions wired through the UI
+  (Add from Asset Library → External Services) create the inline format Agentforce actually executes.
+  The UI path is mandatory, not optional.
