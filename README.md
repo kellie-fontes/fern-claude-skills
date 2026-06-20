@@ -2,7 +2,13 @@
 
 Claude Code skills for building the Fern (FertilityConnect) Agentforce + MuleSoft demo — and any demo like it.
 
-Each skill is a standalone prompt pre-filled with FertilityConnect values as a working example. Replace the `[bracketed placeholders]` with your own industry, persona, and company to build a new demo from scratch.
+Each skill reads from a `fern-context.md` file in your project directory — a single config file that holds your industry, persona, company, API names, and branding. To build a demo for a new industry:
+
+1. Run `/fern-kickoff` with your industry, persona, and flow descriptions — Claude writes a populated `fern-context.md` to your project directory
+2. Open `fern-context.md` and fill in the credential fields (`client_id`, `client_secret`, `business_group_id`, `org_alias`, `org_domain`)
+3. Run each `/fern-*` skill in order — Claude reads `fern-context.md` automatically, no manual value replacement needed
+
+The FertilityConnect values in each skill are a working reference example, not placeholders to edit.
 
 ## Install
 
