@@ -31,8 +31,8 @@ Then open Claude Code and type `/` to see all skills listed.
 | 3 | `/fern-deploy` | Deploy the Mule app to CloudHub Sandbox |
 | 4 | `/fern-wire` | Wire the MuleSoft API to Agentforce via External Service Registration |
 | 4B | `/fern-agent` | Create the Agentforce agent, system prompt, and GenAI functions |
-| 4C | *(UI)* | Wire actions in Agent Builder — see `/fern-agent` |
-| 4D | *(UI)* | Assign agent user + grant External Credential perm set — see `/fern-agent` |
+| 4C | *Manual UI step* | Wire actions in Agent Builder — see `/fern-agent` |
+| 4D | *Manual UI step* | Assign agent user + grant External Credential perm set — see `/fern-agent` |
 | 5 | `/fern-apex` | Build the Apex controllers, Custom Setting, and Remote Site Settings |
 | 6 | `/fern-site` | Create the Experience Cloud site and branded chat LWC |
 | 7 | `/fern-form` | Build the custom object, log form LWC, and real-time polling |
