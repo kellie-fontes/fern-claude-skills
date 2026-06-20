@@ -144,6 +144,28 @@ in Apex (admin user) but silently fail when Agentforce executes them — the age
   GET /services/data/v62.0/tooling/query/?q=SELECT+Id+FROM+GenAiPlannerFunctionDef+WHERE+PlannerId='[your-planner-id]'
   ```
   Delete every record except the one that links to your plugin. Keep your stable plugin PlannerFunctionDef ID noted.
+- **Planner naming: Agent Builder creates a `_v1` planner, not the one in your metadata.** When you wire actions
+  through Agent Builder (Step 4C), it creates a NEW planner named `{agent_developer_name}_v1` — not the planner
+  your metadata deployed. All EmployeeCopilot housekeeping and Tooling API patches must target THIS planner.
+  Verify which planner your bot actually uses:
+  ```
+  GET /services/data/v62.0/tooling/query?q=SELECT+Id,DeveloperName+FROM+GenAiPlannerDefinition
+  GET /services/data/v62.0/tooling/query?q=SELECT+Id,PlannerId,Plugin+FROM+GenAiPlannerFunctionDef
+  ```
+  Match the planner whose `DeveloperName` ends in `_v1` — that's the live one. All subsequent patches go there.
+- **Topic Classification Description must be exhaustive — too narrow causes "can't assist".** Every topic
+  (GenAiPluginDefinition) has TWO text fields that affect routing:
+  - `Description` = the **Classification Description** shown in Agent Builder. The planner uses THIS to decide
+    which topic to route a message to. If it only lists a subset of your actions (e.g. "loyalty and rewards")
+    the planner won't route orders, profile, or summary questions → `result:[]` → "Sorry, I can't assist."
+  - `Scope` = what the topic does once selected (instructions, not classifier).
+  The Classification Description must enumerate every category of question + natural trigger phrases
+  ("how am I doing", "give me a summary", etc.). Patch it while the agent is deactivated:
+  ```bash
+  sf api request rest --target-org [alias] --method PATCH \
+    "/services/data/v62.0/tooling/sobjects/GenAiPluginDefinition/[plugin-id]" \
+    --body '{"Description":"[exhaustive description covering all action categories and trigger phrases]"}'
+  ```
 - **Input schema for hardcoded IDs:** Each GenAiFunction needs an `input/schema.json` so the LLM knows
   the value to pass for required path parameters like `patientId` or `customerId`. Use this pattern:
   ```json

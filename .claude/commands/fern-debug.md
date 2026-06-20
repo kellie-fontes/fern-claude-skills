@@ -149,3 +149,30 @@ The Agentforce bot user has no stored credential value, so callouts fail silentl
 Fix: in your `.externalCredential-meta.xml`, change `parameterType` from `NamedPrincipal`
 to `Anonymous`, redeploy, then ensure the bot user's permission set grants access to the
 Anonymous principal.
+
+---
+
+## 17. Agent Says "Sorry, I Can't Assist" for Every Message (result: [])
+```
+My agent responds with "Sorry, I can't assist with that" for every message,
+even ones clearly within its topic scope. The session creates successfully.
+```
+**Root cause:** The topic's **Classification Description** (`GenAiPluginDefinition.Description`) is
+too narrow. The planner uses this field to decide which topic to route a message to — if it only
+covers a subset of your actions (e.g. "loyalty and rewards") it won't route orders, profile, or
+summary questions, returning `result:[]`.
+
+This field is distinct from **Scope** (which governs what the topic does once selected).
+
+Fix: deactivate the agent, then PATCH the Description to cover every action category and natural
+trigger phrases ("how am I doing", "give me a summary", "show my orders"):
+```bash
+sf api request rest --target-org [alias] --method PATCH \
+  "/services/data/v62.0/tooling/sobjects/GenAiPluginDefinition/[plugin-id]" \
+  --body '{"Description":"[exhaustive description]"}'
+```
+Reactivate after patching. To find your plugin ID:
+```bash
+sf api request rest --target-org [alias] \
+  "/services/data/v62.0/tooling/query?q=SELECT+Id,DeveloperName+FROM+GenAiPluginDefinition"
+```
