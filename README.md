@@ -22,6 +22,12 @@ Then open Claude Code and type `/` to see all skills listed.
 
 ## Skills
 
+**Run this first — every session:**
+
+| Command | What it does |
+|---|---|
+| `/fern-start` | Sets session context and ground rules — run once before anything else |
+
 **Build steps — run in order:**
 
 | Step | Command | What it does |
@@ -42,7 +48,6 @@ Then open Claude Code and type `/` to see all skills listed.
 
 | Command | When to use |
 |---|---|
-| `/fern-start` | Run once at the start of every build session |
 | `/fern-debug` | When something breaks — real errors, real fixes |
 | `/fern-prep` | Morning of every demo — token refresh + checklist |
 

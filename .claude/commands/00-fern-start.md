@@ -64,7 +64,6 @@ into 4A, 4B, 4C, 4D).
 
 | Command | When to use |
 |---|---|
-| `/fern-start` | Run once at the start of every build session |
 | `/fern-debug` | When something breaks — real errors, real fixes |
 | `/fern-prep` | Morning of every demo — token refresh + checklist |
 
