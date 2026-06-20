@@ -57,7 +57,7 @@ for CONTEXT in "$(dirname "$0")/fern-context.md" "$(dirname "$0")/../fern-contex
   [ -f "$CONTEXT" ] && break
 done
 if [ ! -f "$CONTEXT" ]; then
-  echo "ERROR: fern-context.md not found. Run /fern-kickoff first."
+  echo "ERROR: fern-context.md not found. Run /fern-design first."
   exit 1
 fi
 

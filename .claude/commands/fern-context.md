@@ -1,7 +1,7 @@
 # /fern-context — Industry Context Template
 
 This file is the single source of truth for a Fern demo build.
-`/fern-kickoff` generates a populated copy in your project directory.
+`/fern-design` generates a populated copy in your project directory.
 Every other `/fern-*` skill reads from it automatically.
 
 ---
@@ -9,7 +9,7 @@ Every other `/fern-*` skill reads from it automatically.
 ## How to use
 
 **Starting fresh for a new industry:**
-1. Run `/fern-kickoff` with your industry values — it writes `fern-context.md` to your project directory
+1. Run `/fern-design` with your industry values — it writes `fern-context.md` to your project directory
 2. Run each subsequent `/fern-*` skill — Claude reads `fern-context.md` and fills in all placeholders automatically
 
 **Adapting an existing build:**

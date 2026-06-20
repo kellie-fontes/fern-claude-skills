@@ -48,7 +48,7 @@ into 4A, 4B, 4C, 4D).
 
 | Step | Command | What it does |
 |---|---|---|
-| 1 | `/fern-kickoff` | Architecture design + writes fern-context.md |
+| 1 | `/fern-design` | Architecture design + writes fern-context.md |
 | 2 | `/fern-api` | Build the MuleSoft mock API |
 | 3 | `/fern-deploy` | Deploy to CloudHub (writes `cloudhub_url` to fern-context.md) |
 | 4 | `/fern-wire` | Wire MuleSoft to Agentforce via Named Credential + External Service |

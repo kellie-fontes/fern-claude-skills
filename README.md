@@ -4,7 +4,7 @@ Claude Code skills for building the Fern (FertilityConnect) Agentforce + MuleSof
 
 Each skill reads from a `fern-context.md` file in your project directory — a single config file that holds your industry, persona, company, API names, and branding. To build a demo for a new industry:
 
-1. Run `/fern-kickoff` with your industry, persona, and flow descriptions — Claude writes a populated `fern-context.md` to your project directory
+1. Run `/fern-design` with your industry, persona, and flow descriptions — Claude writes a populated `fern-context.md` to your project directory
 2. Open `fern-context.md` and fill in the credential fields (`client_id`, `client_secret`, `business_group_id`, `org_alias`, `org_domain`)
 3. Run each `/fern-*` skill in order — Claude reads `fern-context.md` automatically, no manual value replacement needed
 
@@ -25,7 +25,7 @@ Then open Claude Code and type `/` to see all skills listed.
 | Command | What it does |
 |---|---|
 | `/fern-start` | **Run this first** — sets context and ground rules for the session |
-| `/fern-kickoff` | Design the full architecture before writing any code |
+| `/fern-design` | Design the full architecture before writing any code |
 | `/fern-api` | Build the MuleSoft mock API in Anypoint Code Builder |
 | `/fern-deploy` | Deploy the Mule app to CloudHub Sandbox |
 | `/fern-wire` | Wire the MuleSoft API to Agentforce via External Service Registration |
