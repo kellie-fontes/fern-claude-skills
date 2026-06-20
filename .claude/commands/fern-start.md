@@ -5,7 +5,7 @@ Run this once at the start of every build session before any other /fern-* comma
 ---
 
 ```
-We are going to build a demo together across 12 steps. Here is the
+We are going to build a demo together across these steps. Here is the
 full project overview so you have context:
 
 We are building an Agentforce + MuleSoft + Experience Cloud demo.
@@ -48,9 +48,11 @@ and listing the 12 steps.
 | 0 | `/fern-start` | **This file — run once before anything else** |
 | 1 | `/fern-kickoff` | Architecture design + writes fern-context.md |
 | 2 | `/fern-api` | Build the MuleSoft mock API |
-| 3 | `/fern-deploy` | Deploy to CloudHub |
-| 4 | `/fern-wire` | Wire MuleSoft to Agentforce |
-| 4B | `/fern-agent` | Build the agent + wire actions |
+| 3 | `/fern-deploy` | Deploy to CloudHub (writes `cloudhub_url` to fern-context.md) |
+| 4 | `/fern-wire` | Wire MuleSoft to Agentforce via Named Credential + External Service |
+| 4B | `/fern-agent` | Create the agent metadata + GenAI functions |
+| 4C | *(UI — see /fern-agent)* | Wire actions in Agent Builder — **mandatory, cannot be done via metadata** |
+| 4D | *(UI — see /fern-agent)* | Assign agent user + grant External Credential perm set |
 | 5 | `/fern-apex` | Apex controllers + Custom Setting + Remote Sites |
 | 6 | `/fern-site` | Experience Cloud site + Chat UI + Design |
 | 7 | `/fern-form` | Custom object + log form + real-time polling |

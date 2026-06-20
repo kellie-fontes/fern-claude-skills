@@ -24,7 +24,7 @@ Give me:
 
 | What | URL |
 |---|---|
-| Chatbot ({persona_role} view) | https://{org_domain}.my.site.com/[site-path] |
+| Chatbot (persona view — incognito) | https://{org_domain}.my.site.com/[site-path] |
 | Internal Dashboard | https://[your-org].my.salesforce.com/apex/{vf_page_name} — **use org domain, NOT site domain** |
 | Agentforce Agent Builder | https://[your-org].lightning.force.com → Setup → Agents |
 | Anypoint Runtime Manager | https://anypoint.mulesoft.com → Runtime Manager → Applications |

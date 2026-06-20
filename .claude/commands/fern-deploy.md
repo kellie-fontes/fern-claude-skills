@@ -29,8 +29,13 @@ Walk me through:
 After confirming the app is running, write the exact CloudHub URL
 directly into the cloudhub_url field in fern-context.md — do not
 ask the user to paste it manually. The URL pattern is:
-https://{app_name}.us-e1.cloudhub.io/api/v1 (adjust region code
+http://{app_name}.us-e1.cloudhub.io/api/v1 (adjust region code
 if region is not us-east-1).
+
+IMPORTANT: Use http://, not https://. CloudHub apps deployed with
+default config only listen on HTTP. The Salesforce Named Credential
+must also use http:// — if it says https://, all callouts will
+return 502.
 ```
 
 ---
