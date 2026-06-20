@@ -22,20 +22,29 @@ Then open Claude Code and type `/` to see all skills listed.
 
 ## Skills
 
-| Command | What it does |
+**Build steps — run in order:**
+
+| Step | Command | What it does |
+|---|---|---|
+| 1 | `/fern-design` | Design the full architecture + write fern-context.md |
+| 2 | `/fern-api` | Build the MuleSoft mock API in Anypoint Code Builder |
+| 3 | `/fern-deploy` | Deploy the Mule app to CloudHub Sandbox |
+| 4 | `/fern-wire` | Wire the MuleSoft API to Agentforce via External Service Registration |
+| 4B | `/fern-agent` | Create the Agentforce agent, system prompt, and GenAI functions |
+| 4C | *(UI)* | Wire actions in Agent Builder — see `/fern-agent` |
+| 4D | *(UI)* | Assign agent user + grant External Credential perm set — see `/fern-agent` |
+| 5 | `/fern-apex` | Build the Apex controllers, Custom Setting, and Remote Site Settings |
+| 6 | `/fern-site` | Create the Experience Cloud site and branded chat LWC |
+| 7 | `/fern-form` | Build the custom object, log form LWC, and real-time polling |
+| 8 | `/fern-dashboard` | Build the internal dashboard via Visualforce + Lightning Out |
+
+**Support commands:**
+
+| Command | When to use |
 |---|---|
-| `/fern-start` | **Run this first** — sets context and ground rules for the session |
-| `/fern-design` | Design the full architecture before writing any code |
-| `/fern-api` | Build the MuleSoft mock API in Anypoint Code Builder |
-| `/fern-deploy` | Deploy the Mule app to CloudHub Sandbox |
-| `/fern-wire` | Wire the MuleSoft API to Agentforce via External Service Registration |
-| `/fern-agent` | Create the Agentforce agent, system prompt, and GenAI functions |
-| `/fern-apex` | Build the Apex controllers, Custom Setting, and Remote Site Settings |
-| `/fern-site` | Create the Experience Cloud site and branded chat LWC |
-| `/fern-form` | Build the custom object, log form LWC, and real-time polling |
-| `/fern-dashboard` | Build the internal dashboard via Visualforce + Lightning Out |
-| `/fern-debug` | Debugging prompts for the most common errors |
-| `/fern-prep` | Demo prep checklist, demo links, and admin token refresh script |
+| `/fern-start` | Run once at the start of every build session |
+| `/fern-debug` | When something breaks — real errors, real fixes |
+| `/fern-prep` | Morning of every demo — token refresh + checklist |
 
 ## Prerequisites
 

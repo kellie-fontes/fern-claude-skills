@@ -36,12 +36,85 @@ Don't generate any code yet — just map the full dependency order
 so I know what to build first.
 
 After designing the architecture, write a populated fern-context.md
-file to the project directory using the template from
-~/.claude/commands/fern-context.md. Fill in every field you can
-derive from the architecture. Leave credential fields
+file to the project directory using this template. Fill in every field
+you can derive from the architecture. Leave credential fields
 (client_id, client_secret, business_group_id, bot_id, cloudhub_url,
 org_alias, org_domain) blank — I will fill those in before each step
 that needs them.
+
+## Persona & Agent
+industry:
+persona_name:
+persona_role:
+persona_id:             # static demo ID injected as context (e.g. P001)
+agent_name:             # name shown in the UI (e.g. Fern)
+agent_label:            # Salesforce metadata label (e.g. Fertility Support Agent 2)
+agent_developer_name:   # Salesforce API name, underscores only
+company_name:           # org/company name in agent role prompt
+internal_role:          # who uses the back-office dashboard (e.g. nursing team)
+
+## Demo Flows
+flow_1:
+flow_2:
+flow_3:
+
+## Anypoint / MuleSoft
+client_id:              # connected app client ID
+client_secret:          # connected app client secret
+business_group_id:      # Anypoint business group ID
+app_name:               # CloudHub app name (e.g. fertility-connect-emr)
+environment:            Sandbox
+region:                 us-east-1
+domain:                 # API domain label (e.g. EMR, CRM, Loans)
+
+## API Shape
+resource:               # top-level REST resource (e.g. patients, accounts, orders)
+child_endpoint_1:
+child_endpoint_2:
+child_endpoint_3:
+routing_phrase_1:       # e.g. "how am I doing?" → summary
+routing_phrase_2:       # e.g. "tell me about Menopur" → child_endpoint_1
+cloudhub_url:           # filled after Step 3
+
+## Salesforce Org
+org_alias:              # sf CLI alias
+org_domain:             # my.salesforce.com subdomain
+bot_id:                 # filled after Step 4B
+
+## Salesforce Metadata Names
+external_credential_name:
+named_credential_name:
+external_service_name:
+custom_setting:         # e.g. AgentConfig__c
+agent_controller:       # e.g. AgentController
+log_controller:         # e.g. LogController
+log_object:             # e.g. Log__c
+plugin_name:
+
+## Branding
+primary_color:          # persona-facing hex (e.g. #7c4d8e)
+secondary_color:        # internal dashboard hex (e.g. #1a3a5c)
+chat_component:         # LWC name for chat UI
+form_component:         # LWC name for log form
+dashboard_component:    # LWC name for internal dashboard
+trigger_phrases:        # comma-separated phrases that open the inline form
+follow_up_action:       # what the persona requests (e.g. nurse callback)
+confirmation_message:   # chat message shown when follow-up is confirmed
+
+## Log Object Fields
+persona_id_field:       # e.g. PatientId__c
+persona_name_field:     # e.g. PatientName__c
+item_field:             # e.g. Medication__c
+item_picklist:          # comma-separated picklist values
+detail_field:           # e.g. Dose__c
+occurred_at_field:      # e.g. TakenAt__c
+notes_field:            # e.g. Symptoms__c
+
+## Internal Dashboard
+dashboard_timezone:     # e.g. Pacific Time
+aura_app_name:          # e.g. NursingEmrApp
+vf_page_name:           # e.g. NursingEMR
+dashboard_fields:       # comma-separated display columns
 ```
 
 ---
