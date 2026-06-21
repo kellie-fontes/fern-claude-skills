@@ -44,5 +44,5 @@ return 502.
 - app-name = fertility-connect-emr
 - environment = Sandbox
 - base path = /api/v1
-- public URL = https://fertility-connect-emr.us-e1.cloudhub.io/api/v1
+- public URL = http://fertility-connect-emr.us-e1.cloudhub.io/api/v1
 - test endpoint = GET /api/v1/patients/P001

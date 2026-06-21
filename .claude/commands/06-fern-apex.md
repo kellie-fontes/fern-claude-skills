@@ -60,4 +60,4 @@ Agent bot ID: {bot_id}
 - agent API base = https://api.salesforce.com/einstein/ai-agent/v1
 
 ## Key lesson
-The admin token is a live session cookie that expires — see /fern-prep for the automated token refresh script.
+The admin token is a live session cookie that expires — see /11-fern-prep for the automated token refresh script.

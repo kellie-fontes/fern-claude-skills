@@ -57,7 +57,7 @@ for CONTEXT in "$(dirname "$0")/fern-context.md" "$(dirname "$0")/../fern-contex
   [ -f "$CONTEXT" ] && break
 done
 if [ ! -f "$CONTEXT" ]; then
-  echo "ERROR: fern-context.md not found. Run /fern-design first."
+  echo "ERROR: fern-context.md not found. Run /01-fern-design first to generate it."
   exit 1
 fi
 
@@ -130,6 +130,7 @@ bash token-refresh.sh
 - [ ] Open the internal dashboard in a separate tab (logged in as admin)
 - [ ] Submit a test log from the chatbot and confirm it appears in the dashboard queue
 - [ ] Schedule it from the dashboard and confirm the confirmation message appears in chat
+- [ ] Run `bash reset-demo.sh` to wipe the test records — demo starts clean
 
 **Tabs to have open at demo start:**
 - [ ] Incognito tab — chatbot (the persona view)

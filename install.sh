@@ -31,6 +31,12 @@ for skill in "${skills[@]}"; do
   echo "  ✓ $skill"
 done
 
+# Download utility scripts to current directory
+SCRIPTS_REPO="https://raw.githubusercontent.com/kellie-fontes/fern-claude-skills/main"
+curl -s "$SCRIPTS_REPO/reset-demo.sh" -o ./reset-demo.sh
+chmod +x ./reset-demo.sh
+echo "  ✓ reset-demo.sh (saved to current directory)"
+
 echo ""
 echo "All Fern skills installed to ~/.claude/commands/"
 echo ""
