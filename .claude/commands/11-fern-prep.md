@@ -1,4 +1,4 @@
-# /fern-prep — Demo Prep + Token Refresh
+# /11-fern-prep — Demo Prep + Token Refresh
 
 Everything to check the morning of any demo.
 

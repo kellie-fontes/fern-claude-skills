@@ -1,4 +1,4 @@
-# /fern-api — MuleSoft Mock API
+# /02-fern-api — MuleSoft Mock API
 
 Build and run a MuleSoft mock API in Anypoint Code Builder.
 

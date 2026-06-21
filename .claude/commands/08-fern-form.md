@@ -1,4 +1,4 @@
-# /fern-form — Custom Object + Log Form + Real-Time Polling
+# /08-fern-form — Custom Object + Log Form + Real-Time Polling
 
 Build the custom object, the inline log form LWC, and the polling pattern that closes the loop.
 

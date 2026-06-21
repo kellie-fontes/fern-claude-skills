@@ -1,4 +1,4 @@
-# /fern-agent — Build the Agentforce Agent + Wire Actions
+# /05-fern-agent — Build the Agentforce Agent + Wire Actions
 
 Create the Agentforce agent definition, system prompt, GenAI plugin, and all function wiring.
 

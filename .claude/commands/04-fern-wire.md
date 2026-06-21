@@ -1,4 +1,4 @@
-# /fern-wire — Agentforce Wiring
+# /04-fern-wire — Agentforce Wiring
 
 Connect the deployed MuleSoft API to Agentforce via External Service Registration,
 Named Credential, External Credential, and permission set.

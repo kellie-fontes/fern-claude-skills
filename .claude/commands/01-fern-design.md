@@ -1,4 +1,4 @@
-# /fern-design — Project Architecture Design
+# /01-fern-design — Project Architecture Design
 
 Design the full architecture for an Agentforce + MuleSoft + Experience Cloud demo
 and write a populated `fern-context.md` to the project directory.

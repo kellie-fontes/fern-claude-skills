@@ -1,4 +1,4 @@
-# /fern-deploy — Deploy to CloudHub
+# /03-fern-deploy — Deploy to CloudHub
 
 Deploy the locally-built Mule app to CloudHub Sandbox so Salesforce has a live URL to connect to.
 

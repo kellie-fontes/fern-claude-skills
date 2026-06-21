@@ -1,4 +1,4 @@
-# /fern-dashboard — Internal Back-Office Dashboard
+# /09-fern-dashboard — Internal Back-Office Dashboard
 
 Build the internal LWC dashboard hosted as a standalone URL via Visualforce + Lightning Out.
 

@@ -1,4 +1,4 @@
-# /fern-site — Experience Cloud Site + Chat UI + Design
+# /07-fern-site — Experience Cloud Site + Chat UI + Design
 
 Create the Experience Cloud site, configure guest user permissions, and build the branded chat LWC.
 

@@ -1,4 +1,4 @@
-# /fern-debug — Debugging Prompts
+# /10-fern-debug — Debugging Prompts
 
 Real errors, real fixes. Paste the relevant prompt into Claude Code when you hit one of these walls.
 

@@ -1,4 +1,4 @@
-# /fern-apex — Apex Controllers + Custom Setting + Remote Sites
+# /06-fern-apex — Apex Controllers + Custom Setting + Remote Sites
 
 Build the Apex backend that lets Experience Cloud guest users talk to Agentforce.
 
