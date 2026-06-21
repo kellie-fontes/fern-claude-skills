@@ -1,6 +1,6 @@
-# /05-fern-agent — Build the Agentforce Agent + Wire Actions
+# /05-fern-agent — Agentforce Agent (Steps 4B, 4C, 4D)
 
-Create the Agentforce agent definition, system prompt, GenAI plugin, and all function wiring.
+Build the Agentforce agent, wire actions in Agent Builder, and grant the agent user External Credential access.
 
 ## Instructions
 
@@ -8,6 +8,8 @@ Run this in Claude Code from inside your Salesforce DX project directory.
 Claude will read `fern-context.md` automatically — no manual value replacement needed.
 
 ---
+
+## Step 4B — Build the Agentforce Agent
 
 ```
 Read fern-context.md from the project directory to load all context values.
