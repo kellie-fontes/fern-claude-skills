@@ -132,7 +132,7 @@ bash token-refresh.sh
 - [ ] Schedule it from the dashboard and confirm the confirmation message appears in chat
 
 **Tabs to have open at demo start:**
-1. Incognito tab — chatbot (the persona view)
-2. Main browser tab — internal dashboard
-3. Agentforce Agent Builder — good for showing the "behind the scenes" story
-4. Anypoint Runtime Manager — good for the MuleSoft story
+- [ ] Incognito tab — chatbot (the persona view)
+- [ ] Main browser tab — internal dashboard
+- [ ] Agentforce Agent Builder — good for showing the "behind the scenes" story
+- [ ] Anypoint Runtime Manager — good for the MuleSoft story
