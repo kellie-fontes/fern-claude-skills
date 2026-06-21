@@ -1,6 +1,6 @@
 # /00-fern-start — Session Setup (Run This First)
 
-Run this once at the start of every build session before any other /fern-* command.
+Run this once at the start of every build session before any other /NN-fern-* command.
 
 ---
 
