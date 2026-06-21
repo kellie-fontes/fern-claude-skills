@@ -5,7 +5,7 @@ Run this once at the start of every build session before any other /fern-* comma
 ---
 
 ```
-We are going to build a demo together across 11 steps. Here is the
+We are going to build a demo together across 9 steps. Here is the
 full project overview so you have context:
 
 We are building an Agentforce + MuleSoft + Experience Cloud demo.
@@ -36,7 +36,7 @@ At the start of each step, read fern-context.md to load all
 industry-specific values before generating any code or metadata.
 
 Confirm you understand by summarizing the project in one sentence
-and listing the 11 build steps.
+and listing the 9 build steps.
 ```
 
 ---
