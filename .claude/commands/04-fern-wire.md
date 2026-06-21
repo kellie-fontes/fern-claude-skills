@@ -11,7 +11,7 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 ---
 
 ```
-Read fern-context.md from the project directory to load all context values.
+Read fern-context.md — check the current directory first, then one level up.
 
 My MuleSoft API is deployed at {cloudhub_url} with these endpoints:
 - GET /{resource}/{id}

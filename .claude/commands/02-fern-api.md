@@ -10,7 +10,7 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 ---
 
 ```
-Read fern-context.md from the project directory to load all context values.
+Read fern-context.md — check the current directory first, then one level up.
 
 Build a MuleSoft 4 application in Anypoint Code Builder that acts
 as a mock {domain} API. It should have these endpoints:

@@ -12,7 +12,7 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 ## Step 5A — Build the Agent Metadata
 
 ```
-Read fern-context.md from the project directory to load all context values.
+Read fern-context.md — check the current directory first, then one level up.
 
 Create an Agentforce agent with the following configuration.
 Generate all required Salesforce metadata files.

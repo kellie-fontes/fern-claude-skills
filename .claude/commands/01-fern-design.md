@@ -1,7 +1,7 @@
 # /01-fern-design — Project Architecture Design
 
 Design the full architecture for an Agentforce + MuleSoft + Experience Cloud demo
-and write a populated `fern-context.md` to the project directory.
+and write a populated `fern-context.md` to the parent project directory.
 
 ---
 
@@ -36,7 +36,8 @@ Don't generate any code yet — just map the full dependency order
 so I know what to build first.
 
 After designing the architecture, write a populated fern-context.md
-file to the project directory using this template. Fill in every field
+file to the parent directory (one level above the current project)
+using this template. Fill in every field
 you can derive from the architecture. Leave credential fields
 (client_id, client_secret, business_group_id, bot_id, cloudhub_url,
 org_alias, org_domain) blank — I will fill those in before each step
@@ -181,7 +182,7 @@ Back-Office Dashboard
 Build order (dependency chain, step by step)
 ```
 
-**2. `fern-context.md`** written to your project directory — all fields
+**2. `fern-context.md`** written to your parent project folder — all fields
 populated from the architecture. Credential fields left blank for you to fill.
 
 ---

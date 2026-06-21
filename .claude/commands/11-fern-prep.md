@@ -7,7 +7,7 @@ Everything to check the morning of any demo.
 ## Demo Script Prompt
 
 ```
-Read fern-context.md from the project directory to load all context values.
+Read fern-context.md — check the current directory first, then one level up.
 
 I'm demoing {agent_name} to [audience] in [time]. Here's what works and
 what's broken: [list].

@@ -24,8 +24,9 @@ Ground rules for this session:
 2. After completing each step, stop and wait for me to confirm it
    is working before we move on.
 3. If you need information from a previous step (like a URL or ID),
-   look for it in fern-context.md in the project directory. If it
-   is not there yet, ask me — do not assume or invent values.
+   look for it in fern-context.md — check the current directory first,
+   then one level up. If it is not there yet, ask me — do not assume
+   or invent values.
 4. Keep responses focused on the task at hand. If you see something
    outside the current step that could be improved, note it briefly
    but do not act on it unless I ask.
@@ -66,5 +67,5 @@ and listing the 9 build steps.
 
 **Tip:** Complete and test each step before running the next one.
 
-**To adapt for a new industry:** Edit `fern-context.md` in your project
+**To adapt for a new industry:** Edit `fern-context.md` in your parent
 directory and re-run any step — all values are read from that file.

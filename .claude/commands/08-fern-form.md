@@ -10,7 +10,7 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 ---
 
 ```
-Read fern-context.md from the project directory to load all context values.
+Read fern-context.md — check the current directory first, then one level up.
 
 I need a custom object {log_object} with these fields:
 - {persona_id_field} (Text 50)

@@ -10,7 +10,7 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 ---
 
 ```
-Read fern-context.md from the project directory to load all context values.
+Read fern-context.md — check the current directory first, then one level up.
 
 I need an Experience Cloud site with a custom LWC chat component
 that lets guest users (no login required) talk to my Agentforce agent.
