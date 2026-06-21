@@ -10,6 +10,8 @@ Each skill reads from a `fern-context.md` file in your project directory — a s
 
 The FertilityConnect values in each skill are a working reference example, not placeholders to edit.
 
+> **Note:** `fern-context.md` is not included in this repo. It is generated in your Salesforce project directory when you run `/01-fern-design` and stays local — it contains credentials and org-specific values that should never be committed.
+
 ## Install
 
 Run this one command in your terminal:
