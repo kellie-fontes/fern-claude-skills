@@ -137,7 +137,7 @@ cloudhub_url:     # from Step 3 output
 
 Before running `/fern-apex`, add:
 ```
-bot_id:           # from Step 4B output
+bot_id:           # from Step 4 output
 ```
 
 ---
