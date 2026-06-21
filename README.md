@@ -4,7 +4,7 @@ Claude Code skills for building the Fern (FertilityConnect) Agentforce + MuleSof
 
 Each skill reads from a `fern-context.md` file in your project directory — a single config file that holds your industry, persona, company, API names, and branding. To build a demo for a new industry:
 
-1. Run `/00-fern-start` to set context and groundules for your custom build using the Fern template
+1. Run `/00-fern-start` to set context and ground rules for your custom build using the Fern template
 2. Run `/01-fern-design` with your industry, persona, and flow descriptions — Claude writes a populated `fern-context.md` to your project directory
 3. Open `fern-context.md` and fill in the credential fields (`client_id`, `client_secret`, `business_group_id`, `org_alias`, `org_domain`)
 4. Run each `/NN-fern-*` skill in order — Claude reads `fern-context.md` automatically, no manual value replacement needed
