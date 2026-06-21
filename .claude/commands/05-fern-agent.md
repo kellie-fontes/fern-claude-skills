@@ -1,4 +1,4 @@
-# /05-fern-agent — Agentforce Agent (Steps 4B, 4C, 4D)
+# /05-fern-agent — Build the Agentforce Agent
 
 Build the Agentforce agent, wire actions in Agent Builder, and grant the agent user External Credential access.
 
@@ -9,7 +9,7 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 
 ---
 
-## Step 4B — Build the Agentforce Agent
+## Step 5A — Build the Agent Metadata
 
 ```
 Read fern-context.md from the project directory to load all context values.
@@ -66,7 +66,7 @@ it manually.
 
 ---
 
-## Step 4C — Wire Actions in Agent Builder UI (required, cannot be done via metadata)
+## Step 5B — Wire Actions in Agent Builder UI (required, cannot be done via metadata)
 
 After deploying the bot metadata, you MUST wire the actions through the Agent Builder UI.
 Metadata-deployed GenAiFunctions do NOT show Inputs/Outputs in Agent Builder and the agent
@@ -99,7 +99,7 @@ that Agentforce actually uses.
 
 ---
 
-## Step 4D — Grant the Agent User External Credential Access
+## Step 5C — Grant the Agent User External Credential Access
 
 The agent user runs every MuleSoft callout. Without the right permission set, callouts succeed
 in Apex (admin user) but silently fail when Agentforce executes them — the agent says

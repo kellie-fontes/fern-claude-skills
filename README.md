@@ -26,30 +26,28 @@ Then open Claude Code and type `/` to see all skills listed.
 
 | Command | What it does |
 |---|---|
-| `/fern-start` | Sets session context and ground rules — run once before anything else |
+| `/00-fern-start` | Sets session context and ground rules — run once before anything else |
 
 **Build steps — run in order:**
 
 | Step | Command | What it does |
 |---|---|---|
-| 1 | `/fern-design` | Design the full architecture + write fern-context.md |
-| 2 | `/fern-api` | Build the MuleSoft mock API in Anypoint Code Builder |
-| 3 | `/fern-deploy` | Deploy the Mule app to CloudHub Sandbox |
-| 4 | `/fern-wire` | Wire the MuleSoft API to Agentforce via External Service Registration |
-| 4B | `/fern-agent` | Create the Agentforce agent, system prompt, and GenAI functions |
-| 4C | *Manual UI step* | Wire actions in Agent Builder — see `/fern-agent` |
-| 4D | *Manual UI step* | Assign agent user + grant External Credential perm set — see `/fern-agent` |
-| 5 | `/fern-apex` | Build the Apex controllers, Custom Setting, and Remote Site Settings |
-| 6 | `/fern-site` | Create the Experience Cloud site and branded chat LWC |
-| 7 | `/fern-form` | Build the custom object, log form LWC, and real-time polling |
-| 8 | `/fern-dashboard` | Build the internal dashboard via Visualforce + Lightning Out |
+| 1 | `/01-fern-design` | Design the full architecture + write fern-context.md |
+| 2 | `/02-fern-api` | Build the MuleSoft mock API in Anypoint Code Builder |
+| 3 | `/03-fern-deploy` | Deploy the Mule app to CloudHub Sandbox |
+| 4 | `/04-fern-wire` | Wire the MuleSoft API to Agentforce via External Service Registration |
+| 5 | `/05-fern-agent` | Build the agent, wire actions in Agent Builder, grant permissions |
+| 6 | `/06-fern-apex` | Build the Apex controllers, Custom Setting, and Remote Site Settings |
+| 7 | `/07-fern-site` | Create the Experience Cloud site and branded chat LWC |
+| 8 | `/08-fern-form` | Build the custom object, log form LWC, and real-time polling |
+| 9 | `/09-fern-dashboard` | Build the internal dashboard via Visualforce + Lightning Out |
 
 **Support commands:**
 
 | Command | When to use |
 |---|---|
-| `/fern-debug` | When something breaks — real errors, real fixes |
-| `/fern-prep` | Morning of every demo — token refresh + checklist |
+| `/10-fern-debug` | When something breaks — real errors, real fixes |
+| `/11-fern-prep` | Morning of every demo — token refresh + checklist |
 
 ## Prerequisites
 
