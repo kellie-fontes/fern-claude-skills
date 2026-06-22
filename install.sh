@@ -35,7 +35,8 @@ done
 SCRIPTS_REPO="https://raw.githubusercontent.com/kellie-fontes/fern-claude-skills/main"
 curl -s "$SCRIPTS_REPO/reset-demo.sh" -o ./reset-demo.sh
 chmod +x ./reset-demo.sh
-echo "  ✓ reset-demo.sh (saved to current directory)"
+RESET_PATH="$(pwd)/reset-demo.sh"
+echo "  ✓ reset-demo.sh (saved to $RESET_PATH)"
 
 echo ""
 echo "All Fern skills installed to ~/.claude/commands/"
@@ -55,3 +56,8 @@ echo "  /10-fern-debug     — Debugging prompts (use any time)"
 echo "  /11-fern-prep      — Demo prep + token refresh (run before every demo)"
 echo ""
 echo "Open Claude Code and type / to see them listed."
+echo ""
+echo "Note: reset-demo.sh was saved to $RESET_PATH"
+echo "Move it into your Salesforce DX project directory before running it:"
+echo "  mv $RESET_PATH /path/to/your/project/"
+echo "  bash reset-demo.sh"
