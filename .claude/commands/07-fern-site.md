@@ -60,7 +60,8 @@ that lets guest users (no login required) talk to my Agentforce agent.
 
 After deploying the site and components, capture the site URL path automatically:
 sf data query --query "SELECT Id, Name, UrlPathPrefix FROM Network" --target-org {org_alias} --json
-Match the result to the site you just created. Write the UrlPathPrefix value to site_path in fern-context.md. Confirm: "site_path written to fern-context.md: [value]. Your chatbot URL will be: https://{org_domain}.my.site.com/[site_path]"
+If exactly one network is returned, write its UrlPathPrefix to site_path in fern-context.md and confirm: "site_path written to fern-context.md: [value]. Your chatbot URL will be: https://{org_domain}.my.site.com/[site_path]"
+If multiple networks are returned, list them with their Name and UrlPathPrefix and ask: "Which site is your chatbot site? Enter the name or path prefix." Write the selected value to site_path after the user confirms.
 ```
 
 ---
