@@ -8,6 +8,7 @@ Everything to check the morning of any demo.
 
 ```
 Read fern-context.md — check the current directory first, then one level up.
+Every `{variable}` in these instructions is a placeholder — replace it with the matching value from fern-context.md before running any command or generating any output.
 
 I'm demoing {agent_name} to [audience] in [time]. Here's what works and
 what's broken: [list].
