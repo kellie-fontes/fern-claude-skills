@@ -5,9 +5,9 @@ Claude Code skills for building the Fern (FertilityConnect) Agentforce + MuleSof
 Each skill reads from a `fern-context.md` file in your project directory — a single config file that holds your industry, persona, company, API names, and branding. To build a demo for a new industry:
 
 1. Run `/00-fern-start` to set context and ground rules for your custom build using the Fern template
-2. Run `/01-fern-design` with your industry, persona, and flow descriptions — Claude writes a populated `fern-context.md` to your project directory
-3. Open `fern-context.md` and fill in the credential fields (`client_id`, `client_secret`, `business_group_id`, `org_alias`, `org_domain`)
-4. Run each `/NN-fern-*` skill in order — Claude reads `fern-context.md` automatically, no manual value replacement needed
+2. Run `/01-fern-design` with your industry, persona, and flow descriptions — Claude writes a populated `fern-context.md` and auto-fills `org_alias`, `org_domain`, and `business_group_id`
+3. Open `fern-context.md` and fill in `client_id` and `client_secret` (your Anypoint connected app credentials — the only two fields that can't be auto-populated)
+4. Run each `/NN-fern-*` skill in order — Claude fills in the remaining fields like `cloudhub_url`, `bot_id`, and `site_path` automatically as each step completes
 
 The FertilityConnect values in each skill are a working reference example, not placeholders to edit.
 
@@ -50,7 +50,7 @@ Then open Claude Code and type `/` to see all skills listed.
 | Command | When to use |
 |---|---|
 | `/10-fern-debug` | When something breaks — real errors, real fixes |
-| `/11-fern-prep` | Morning of every demo — token refresh + checklist |
+| `/11-fern-prep` | Morning of every demo — auto-refreshes the admin token, checks MuleSoft health, generates demo script and links |
 
 ## Prerequisites
 
@@ -97,7 +97,7 @@ bash reset-demo.sh
 
 The script reads `fern-context.md` to know which org, object, persona ID field, and persona ID to target — no manual edits needed. It prompts for confirmation before deleting anything.
 
-Download it from the repo or copy it to your project directory alongside `token-refresh.sh`.
+Downloaded automatically by `install.sh`. `token-refresh.sh` is written to your project directory the first time you run `/11-fern-prep`.
 
 
 ## Built by
