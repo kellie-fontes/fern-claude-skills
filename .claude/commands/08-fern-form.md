@@ -52,7 +52,9 @@ Also add a polling pattern to {chat_component} that:
 
 After generating the custom object metadata and LWC files, deploy everything:
 sf project deploy start --source-dir force-app/main/default --target-org {org_alias}
-Wait for the deployment to complete and report success or any errors.
+Capture the job ID from the deploy output. Then poll until complete:
+sf project deploy report --job-id [job-id] --target-org {org_alias}
+Run the report command every 10 seconds until status is Succeeded or Failed. Report the final status. Do not proceed past this step until deployment succeeds.
 ```
 
 ---
