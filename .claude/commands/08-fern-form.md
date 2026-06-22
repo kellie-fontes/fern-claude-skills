@@ -13,6 +13,7 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 Before proceeding, read fern-context.md and verify these fields are present and non-empty: org_alias, log_object, log_controller, form_component, chat_component, item_field, item_picklist, detail_field, occurred_at_field, persona_id_field. If any are missing, list them and stop.
 
 Read fern-context.md — check the current directory first, then one level up.
+Every `{variable}` in these instructions is a placeholder — replace it with the matching value from fern-context.md before running any command or generating any code.
 
 I need a custom object {log_object} with these fields:
 - {persona_id_field} (Text 50)
