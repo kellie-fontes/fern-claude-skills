@@ -43,7 +43,9 @@ Build an internal {internal_role} dashboard for managing pending
 
 After generating the dashboard LWC, Aura wrapper, and Visualforce page, deploy everything:
 sf project deploy start --source-dir force-app/main/default --target-org {org_alias}
-Wait for deployment to complete. On success, open the dashboard directly:
+Capture the job ID from the deploy output. Then poll until complete:
+sf project deploy report --job-id [job-id] --target-org {org_alias}
+Run the report command every 10 seconds until status is Succeeded or Failed. Report the final status. On success, open the dashboard directly:
 sf org open --path /apex/{vf_page_name} --target-org {org_alias}
 ```
 
