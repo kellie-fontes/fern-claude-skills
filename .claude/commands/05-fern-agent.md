@@ -103,34 +103,37 @@ After you say "Agent activated", Claude will automatically:
 
 You'll see a confirmation for each step. When all four are done, run `/06-fern-apex`.
 
----
+<!-- CLAUDE AUTOMATION — not shown to user, not for copy/paste -->
+<!--
+When the user says "Agent activated", run these four steps silently and report only the results:
 
-```
-After the user confirms activation, run the following automatically — do not wait for the user to ask:
+1. RETRIEVE BOT ID
+   sf api request rest --target-org {org_alias} "/services/data/v62.0/tooling/query?q=SELECT+Id+FROM+BotDefinition+WHERE+DeveloperName='{agent_developer_name}'"
+   Parse the Id and write it to bot_id in fern-context.md. Read the file back to verify.
+   Success → print "✓ bot_id saved: [value]"
+   Failure → print "bot_id could not be saved automatically — open Agent Builder, copy the 18-character ID from the URL bar, and paste it into bot_id in fern-context.md."
 
-1. Retrieve bot ID:
-sf api request rest --target-org {org_alias} "/services/data/v62.0/tooling/query?q=SELECT+Id+FROM+BotDefinition+WHERE+DeveloperName='{agent_developer_name}'"
-Parse the Id and write it to bot_id in fern-context.md. Read the file back to verify it's present.
-If it's missing after writing, tell the user: "bot_id could not be written automatically — open Agent Builder, copy the 18-character ID from the URL bar, and paste it into bot_id in fern-context.md." Otherwise confirm: "✓ bot_id saved: [value]"
+2. CLEAN UP EMPLOYEECOPILOT
+   Write cleanup-agent.sh using org_alias, agent_developer_name, and plugin_name from fern-context.md.
+   The script: finds the _v1 planner in GenAiPlannerDefinition → queries its GenAiPlannerFunctionDef records
+   → deletes any where the linked plugin is EmployeeCopilot__AnswerQuestionsWithKnowledge.
+   chmod +x, run immediately, print what was deleted (or "Nothing to clean up").
 
-2. Generate cleanup-agent.sh from fern-context.md values (org_alias, agent_developer_name, plugin_name). The script must:
-   - Query GenAiPlannerDefinition for the planner whose DeveloperName ends in _v1
-   - Query all GenAiPlannerFunctionDef records for that planner
-   - Delete any record where the linked plugin is EmployeeCopilot__AnswerQuestionsWithKnowledge
-   - Print what was deleted (or "Nothing to clean up")
-Save as cleanup-agent.sh, chmod +x, run it immediately, and report what was deleted.
+3. PATCH TOPIC ROUTING
+   Query GenAiPluginDefinition for {plugin_name}. PATCH its Description with an exhaustive list of
+   every action category and trigger phrase from routing_phrase_1, routing_phrase_2,
+   child_endpoint_1/2/3, and persona_role in fern-context.md.
+   Print "✓ Topic routing patched"
 
-3. Patch topic routing — query GenAiPluginDefinition for {plugin_name}, then PATCH its Description with an exhaustive list of every action category and natural trigger phrase drawn from routing_phrase_1, routing_phrase_2, child_endpoint_1/2/3, and persona_role in fern-context.md. Confirm the patch was applied.
-
-4. Assign External Credential permission set to the agent user:
-   a. sf data query --query "SELECT Id, Name FROM PermissionSet WHERE Name LIKE '%API_Access%'" --target-org {org_alias}
-   b. sf data query --query "SELECT Id, Username FROM User WHERE Username LIKE '%agent%' OR Profile.Name = 'Einstein Service Agent'" --target-org {org_alias}
-      If multiple users are returned, list them and ask which one to use.
-   c. POST to /services/data/v62.0/sobjects/PermissionSetAssignment/ with AssigneeId and PermissionSetId. If duplicate error, continue.
-   d. Test: sf apex run --target-org {org_alias} --apex-code "System.debug(JSON.serialize(Http.send(new HttpRequest(){{ setEndpoint('callout:{named_credential_name}/{resource}/{persona_id}'); setMethod('GET'); }})));"
-      If HTTP 200 → confirm "✓ MuleSoft callout working"
-      If 502 → tell the user: "Named Credential URL may be HTTPS — go to Setup → Named Credentials → edit {named_credential_name} → change the URL from https:// to http://"
-```
+4. ASSIGN EXTERNAL CREDENTIAL PERMISSION SET
+   a. Find permission set: SELECT Id FROM PermissionSet WHERE Name LIKE '%API_Access%'
+   b. Find agent user: SELECT Id, Username FROM User WHERE Username LIKE '%agent%' OR Profile.Name = 'Einstein Service Agent'
+      If multiple users found, list them and ask which to use before continuing.
+   c. POST PermissionSetAssignment. If duplicate error, continue.
+   d. Test callout via sf apex run. 
+      HTTP 200 → print "✓ MuleSoft callout working — ready to run /06-fern-apex"
+      HTTP 502 → print "Named Credential URL may be HTTPS. Go to Setup → Named Credentials → edit {named_credential_name} → change https:// to http://"
+-->
 
 ---
 
