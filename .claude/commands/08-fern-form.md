@@ -2,11 +2,6 @@
 
 Build the custom object, the inline log form LWC, and the polling pattern that closes the loop.
 
-## Instructions
-
-Run this in Claude Code from inside your Salesforce DX project directory.
-Claude will read `fern-context.md` automatically — no manual value replacement needed.
-
 ---
 
 ```
