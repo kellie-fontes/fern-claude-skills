@@ -19,6 +19,16 @@ LOG_OBJECT=$(grep '^log_object:' "$CONTEXT" | awk -F': ' '{print $2}' | xargs)
 PERSONA_ID=$(grep '^persona_id:' "$CONTEXT" | awk -F': ' '{print $2}' | xargs)
 PERSONA_ID_FIELD=$(grep '^persona_id_field:' "$CONTEXT" | awk -F': ' '{print $2}' | xargs)
 
+if [ -z "$ALIAS" ] || [ -z "$LOG_OBJECT" ] || [ -z "$PERSONA_ID" ] || [ -z "$PERSONA_ID_FIELD" ]; then
+  echo "ERROR: fern-context.md is missing required fields:"
+  [ -z "$ALIAS" ]            && echo "  - org_alias"
+  [ -z "$LOG_OBJECT" ]       && echo "  - log_object"
+  [ -z "$PERSONA_ID" ]       && echo "  - persona_id"
+  [ -z "$PERSONA_ID_FIELD" ] && echo "  - persona_id_field"
+  echo "Fill in the missing fields in fern-context.md and try again."
+  exit 1
+fi
+
 echo "Org:        $ALIAS"
 echo "Object:     $LOG_OBJECT"
 echo "Scoped to:  ${PERSONA_ID_FIELD} = ${PERSONA_ID}"
