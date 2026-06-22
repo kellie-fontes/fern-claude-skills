@@ -123,7 +123,7 @@ calling the function. The function requires a [paramName] path parameter.
 ```
 **Root cause:** No `input/schema.json` — the LLM doesn't know the value to pass and falls back
 to asking the user. Add an `input/schema.json` to the GenAiFunction with `isUserInput: true` and
-a description like "Always use [value]. Never ask the user." See `/fern-agent` key lessons for
+a description like "Always use [value]. Never ask the user." See `/05-fern-agent` key lessons for
 the exact schema pattern.
 
 ---

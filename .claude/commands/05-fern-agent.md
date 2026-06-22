@@ -59,9 +59,9 @@ GenAiFunction for each endpoint — write descriptions as
 - POST endpoints → isConfirmationRequired: true,
   isIncludeInProgressIndicator: true
 
-After creating the agent, write the bot ID directly into the
-bot_id field in fern-context.md — do not ask the user to paste
-it manually.
+After deploying the metadata, the bot ID is not yet available —
+it is obtained in Step 5B after activation (from the Agent Builder URL).
+Do not attempt to write bot_id to fern-context.md here.
 ```
 
 ---
@@ -95,7 +95,7 @@ that Agentforce actually uses.
 **Activate:**
 
 11. Click **Activate** — if you see "Configuration Issues Detected / We couldn't load the checklist", click **Ignore & Activate**
-12. After activation, note the bot ID from the URL (`/AiCopilot/copilotStudio.app#/cop/0Xx...`) and update `RetailAgentController.cls`
+12. After activation, note the bot ID from the URL (`/AiCopilot/copilotStudio.app#/cop/0Xx...`), write it into the `bot_id` field in `fern-context.md`, and update `RetailAgentController.cls`
 
 ---
 
@@ -147,7 +147,7 @@ in Apex (admin user) but silently fail when Agentforce executes them — the age
   ```
   Delete every record except the one that links to your plugin. Keep your stable plugin PlannerFunctionDef ID noted.
 - **Planner naming: Agent Builder creates a `_v1` planner, not the one in your metadata.** When you wire actions
-  through Agent Builder (Step 4C), it creates a NEW planner named `{agent_developer_name}_v1` — not the planner
+  through Agent Builder (Step 5B), it creates a NEW planner named `{agent_developer_name}_v1` — not the planner
   your metadata deployed. All EmployeeCopilot housekeeping and Tooling API patches must target THIS planner.
   Verify which planner your bot actually uses:
   ```

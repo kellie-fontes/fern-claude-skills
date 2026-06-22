@@ -120,7 +120,7 @@ dashboard_fields:       # comma-separated display columns
 
 ---
 
-## Step 2 — Fill in credentials
+## Fill in credentials
 
 Before running `/02-fern-api`, open `fern-context.md` and fill in:
 ```
