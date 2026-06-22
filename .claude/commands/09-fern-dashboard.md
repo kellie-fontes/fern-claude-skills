@@ -2,11 +2,6 @@
 
 Build the internal LWC dashboard hosted as a standalone URL via Visualforce + Lightning Out.
 
-## Instructions
-
-Run this in Claude Code from inside your Salesforce DX project directory.
-Claude will read `fern-context.md` automatically — no manual value replacement needed.
-
 ---
 
 ```
