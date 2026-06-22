@@ -13,6 +13,7 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 Before proceeding, read fern-context.md and verify these fields are present and non-empty: client_id, client_secret, business_group_id, app_name, region. If any are missing, list them and stop — do not proceed until they are filled in.
 
 Read fern-context.md — check the current directory first, then one level up.
+Every `{variable}` in these instructions is a placeholder — replace it with the matching value from fern-context.md before running any command or generating any code.
 
 My MuleSoft app is built and running locally in Anypoint Code Builder.
 I need to deploy it to CloudHub Sandbox so Salesforce can call it.
