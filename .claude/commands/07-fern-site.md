@@ -2,11 +2,6 @@
 
 Create the Experience Cloud site, configure guest user permissions, and build the branded chat LWC.
 
-## Instructions
-
-Run this in Claude Code from inside your Salesforce DX project directory.
-Claude will read `fern-context.md` automatically — no manual value replacement needed.
-
 ---
 
 ```
