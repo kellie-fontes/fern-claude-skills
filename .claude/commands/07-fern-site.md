@@ -13,6 +13,7 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 Before proceeding, read fern-context.md and verify these fields are present and non-empty: org_alias, org_domain, agent_controller, log_controller, chat_component, primary_color, secondary_color, trigger_phrases. If any are missing, list them and stop.
 
 Read fern-context.md — check the current directory first, then one level up.
+Every `{variable}` in these instructions is a placeholder — replace it with the matching value from fern-context.md before running any command or generating any code.
 
 I need an Experience Cloud site with a custom LWC chat component
 that lets guest users (no login required) talk to my Agentforce agent.
@@ -58,7 +59,13 @@ that lets guest users (no login required) talk to my Agentforce agent.
    - Define brand palette as CSS comments at top of each file
      so re-skinning for a new industry takes minutes
 
-After deploying the site and components, capture the site URL path automatically:
+Deploy the site and all components:
+sf project deploy start --source-dir force-app/main/default --target-org {org_alias}
+Capture the job ID from the deploy output. Then poll until complete:
+sf project deploy report --job-id [job-id] --target-org {org_alias}
+Run the report command every 10 seconds until status is Succeeded or Failed. Report the final status. Do not proceed until deployment succeeds.
+
+After deployment succeeds, capture the site URL path automatically:
 sf data query --query "SELECT Id, Name, UrlPathPrefix FROM Network" --target-org {org_alias} --json
 If exactly one network is returned, write its UrlPathPrefix to site_path in fern-context.md and confirm: "site_path written to fern-context.md: [value]. Your chatbot URL will be: https://{org_domain}.my.site.com/[site_path]"
 If multiple networks are returned, list them with their Name and UrlPathPrefix and ask: "Which site is your chatbot site? Enter the name or path prefix." Write the selected value to site_path after the user confirms.
