@@ -13,6 +13,7 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 
 ```
 Read fern-context.md — check the current directory first, then one level up.
+Every `{variable}` in these instructions is a placeholder — replace it with the matching value from fern-context.md before running any command or generating any code.
 
 Before proceeding, verify these fields are present and non-empty: org_alias, org_domain, agent_label, agent_developer_name, plugin_name, persona_id, cloudhub_url. If any are missing, list them and stop.
 
