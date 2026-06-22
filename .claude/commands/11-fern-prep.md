@@ -16,6 +16,13 @@ Give me:
 1. A demo script that plays to the working parts
 2. Fallback talking points if something breaks live
 3. The one-liner that explains the architecture in 10 seconds
+4. A "Demo Links" section with the exact URLs I need, built from fern-context.md values:
+   - Chatbot (open in incognito): https://{org_domain}.my.site.com/[site-path]
+   - Internal Dashboard: https://{org_domain}.my.salesforce.com/apex/{vf_page_name}
+   - Agentforce Agent Builder: https://{org_domain}.lightning.force.com → Setup → Agents
+   - Anypoint Runtime Manager: https://anypoint.mulesoft.com → Runtime Manager → Applications
+   - CloudHub test endpoint: {cloudhub_url}/{resource}/{persona_id}
+5. A "Tabs to open before you start" checklist using those exact links
 ```
 
 ---
