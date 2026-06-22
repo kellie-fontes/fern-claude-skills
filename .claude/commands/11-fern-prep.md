@@ -46,10 +46,9 @@ These are built from your `fern-context.md` values — update that file and thes
 The chatbot authenticates to Agentforce using a Salesforce admin session token stored in a Custom Setting.
 **It expires when you log out or after inactivity — refresh it every morning before a demo.**
 
-Save the script below as `token-refresh.sh` in your project. Run it once and you're done.
+Read fern-context.md — check the current directory first, then one level up.
 
-The script reads `fern-context.md` to populate `custom_setting` and `org_alias` automatically.
-If you haven't set those values yet, add them before running.
+Write the script below as `token-refresh.sh` in the same directory as fern-context.md. Do not ask the user to copy it manually — create the file directly and confirm where it was saved.
 
 ```bash
 #!/bin/bash
