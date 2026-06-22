@@ -101,44 +101,41 @@ that Agentforce actually uses.
 
 ---
 
-After the user confirms activation, run:
+After the user confirms activation, run the following automatically — do not wait for the user to ask:
 ```
 sf api request rest --target-org {org_alias} "/services/data/v62.0/tooling/query?q=SELECT+Id+FROM+BotDefinition+WHERE+DeveloperName='{agent_developer_name}'"
 ```
-Parse the Id from the response and write it to the `bot_id` field in `fern-context.md` automatically. Confirm to the user: "bot_id written to fern-context.md: [value]"
+Parse the Id from the response and write it to the `bot_id` field in `fern-context.md`. Then read `fern-context.md` back and confirm the value is present and non-empty. If the field is missing or empty after writing, stop and tell the user: "bot_id could not be written automatically. In Setup → Agents, open your agent in Agent Builder — the bot ID is in the URL bar as the 18-character record ID. Copy it and paste it into the bot_id field in fern-context.md manually, then continue to /06-fern-apex." Only confirm success once bot_id is verified in the file: "bot_id written to fern-context.md: [value]. You can now run /06-fern-apex."
 
 ---
 
-## Step 5C [MANUAL STEP] — Grant the Agent User External Credential Access
+## Step 5C — Grant the Agent User External Credential Access
 
 The agent user runs every MuleSoft callout. Without the right permission set, callouts succeed
 in Apex (admin user) but silently fail when Agentforce executes them — the agent says
 "I couldn't retrieve your information" with no error in the logs.
 
-**Fix (automated):**
+**Run the following commands automatically in sequence — do not ask the user to copy/paste them:**
 
-1. Confirm the permission set does NOT have `viewAllFields: true` — run:
+1. Look up the permission set ID:
    ```
-   sf data query --query "SELECT Id, Name FROM PermissionSet WHERE Name = '{external_credential_name}_API_Access'" --target-org {org_alias}
+   sf data query --query "SELECT Id, Name FROM PermissionSet WHERE Name LIKE '%API_Access%'" --target-org {org_alias}
    ```
-   If `viewAllFields` is a concern, note it to the user.
-2. Look up the permission set ID:
+2. Look up the agent user ID:
    ```
-   sf data query --query "SELECT Id FROM PermissionSet WHERE Name LIKE '%API_Access%'" --target-org {org_alias}
+   sf data query --query "SELECT Id, Username FROM User WHERE Username LIKE '%agent%' OR Profile.Name = 'Einstein Service Agent'" --target-org {org_alias}
    ```
-3. Look up the agent user ID:
-   ```
-   sf data query --query "SELECT Id FROM User WHERE Username LIKE '%agent%' OR Profile.Name = 'Einstein Service Agent'" --target-org {org_alias}
-   ```
-4. Assign the permission set via REST:
+   If multiple users are returned, list them and ask which one to use before proceeding.
+3. Assign the permission set via REST:
    ```
    sf api request rest --target-org {org_alias} --method POST "/services/data/v62.0/sobjects/PermissionSetAssignment/" --body '{"AssigneeId":"[agent_user_id]","PermissionSetId":"[perm_set_id]"}'
    ```
-5. Test the callout:
+   If the assignment already exists (duplicate error), that is fine — continue.
+4. Test the callout:
    ```
    sf apex run --target-org {org_alias} --apex-code "System.debug(JSON.serialize(Http.send(new HttpRequest(){{ setEndpoint('callout:{named_credential_name}/{resource}/{persona_id}'); setMethod('GET'); }})));"
    ```
-   Confirm it returns HTTP 200 before testing via chatbot.
+   Confirm it returns HTTP 200. If it returns 502, the Named Credential URL may be HTTPS — check Setup → Named Credentials and change it to `http://`. See the HTTP vs HTTPS note below.
 
 **Named Credential HTTP vs HTTPS:**
 - CloudHub apps deployed with default config only listen on HTTP, not HTTPS
@@ -150,9 +147,16 @@ in Apex (admin user) but silently fail when Agentforce executes them — the age
 
 ---
 
-## Generate cleanup-agent.sh
+## Generate and Run cleanup-agent.sh
 
-After completing Step 5, generate a `cleanup-agent.sh` script in the project root using the following logic. Read `org_alias`, `agent_developer_name`, and `plugin_name` from `fern-context.md`.
+After completing Step 5B (and after bot_id is confirmed in fern-context.md), immediately:
+
+1. Generate `cleanup-agent.sh` in the current directory using the logic below — read `org_alias`, `agent_developer_name`, and `plugin_name` from `fern-context.md`.
+2. Make it executable: `chmod +x cleanup-agent.sh`
+3. Run it immediately: `bash cleanup-agent.sh`
+4. Confirm to the user what was deleted (or "No EmployeeCopilot records found — nothing to clean up").
+
+Do not wait for the user to ask — run it automatically after every activation.
 
 The script should:
 1. Query `GenAiPlannerDefinition` to find the planner whose `DeveloperName` ends in `_v1` (the one Agent Builder created)
@@ -161,7 +165,7 @@ The script should:
 4. Print confirmation of what was deleted
 5. Print "Run this after every deactivate → activate cycle"
 
-Save as `cleanup-agent.sh` in the current directory. Make it executable.
+Save as `cleanup-agent.sh` in the current directory.
 
 ---
 
