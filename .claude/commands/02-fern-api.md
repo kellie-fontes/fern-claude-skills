@@ -2,10 +2,7 @@
 
 Build and run a MuleSoft mock API in Anypoint Code Builder.
 
-## Instructions
-
-Run this in Claude Code with the MuleSoft MCP server connected.
-Claude will read `fern-context.md` automatically — no manual value replacement needed.
+> Requires the MuleSoft MCP server to be connected. Check with `/mcp` if unsure.
 
 ---
 
