@@ -1,50 +1,85 @@
 # /00-fern-start — Session Setup (Run This First)
 
-Run this once at the start of every build session before any other /NN-fern-* command.
+Run this once at the start of every session before any other /NN-fern-* command.
 
 ---
 
 ```
-We are going to build a demo together across 9 steps. Here is the
-full project overview so you have context:
+Run the following automatically — do not ask the user anything yet:
 
-We are building an Agentforce + MuleSoft + Experience Cloud demo.
-It consists of:
-- A MuleSoft mock API deployed to CloudHub (Steps 1-3)
-- An Agentforce agent wired to that API (Steps 4-5)
-- Apex controllers and a Custom Setting for authentication (Step 6)
-- An Experience Cloud site with a branded chat LWC (Step 7)
-- A custom object, log form, and real-time polling (Step 8)
-- An internal dashboard via Visualforce + Lightning Out (Step 9)
+find ~ -name "fern-context.md" \
+  -not -path "*/node_modules/*" \
+  -not -path "*/.git/*" \
+  -not -path "*/vendor/*" \
+  2>/dev/null
 
-Ground rules for this session:
-1. We will work through one step at a time. When I paste a prompt,
-   focus ONLY on that step — do not proceed to the next step
-   automatically.
-2. After completing each step, stop and wait for me to confirm it
-   is working before we move on.
-3. If you need information from a previous step (like a URL or ID),
-   look for it in fern-context.md — check the current directory first,
-   then one level up. If it is not there yet, ask me — do not assume
-   or invent values.
-4. Keep responses focused on the task at hand. If you see something
-   outside the current step that could be improved, note it briefly
-   but do not act on it unless I ask.
-5. When a step is done, say "Step [N] complete — ready for Step [N+1]
-   when you are."
+For each file found, read it and extract:
+- agent_name
+- persona_name
+- persona_role
+- industry
+- cloudhub_url   (blank = Step 3 not done)
+- bot_id         (blank = Step 5 not done)
+- site_path      (blank = Step 7 not done)
 
-At the start of each step, read fern-context.md to load all
-industry-specific values before generating any code or metadata.
+Determine the last completed step for each project using this logic:
+- site_path is populated        → Steps 1–7 done, last confirmed: Step 7
+- bot_id is populated           → Steps 1–5 done, last confirmed: Step 5
+- cloudhub_url is populated     → Steps 1–3 done, last confirmed: Step 3
+- none of the above             → Step 1 done (context file exists but no steps verified)
 
-Confirm you understand by summarizing the project in one sentence
-and listing the 9 build steps.
+Then present this menu — exactly this format, nothing else before it:
+
+---
+**Fern — Session Setup**
+
+[If 1+ projects found, list them:]
+Existing projects:
+  1. [agent_name] — [industry] ([persona_role])  ·  last step: [N]
+  2. [agent_name] — [industry] ([persona_role])  ·  last step: [N]
+  ...
+  [N+1]. Start a new project
+
+[If no projects found:]
+No existing projects found.
+  1. Start a new project
+
+What would you like to do?
+  • Type a number to resume or start
+  • Or type "revisit [number]" to reload a project and re-run any step
+---
+
+Wait for the user to respond, then:
+
+IF they choose an existing project to resume:
+  - Read that project's fern-context.md fully into context
+  - Confirm: "Loaded [agent_name] for [company_name]. Picking up at Step [N+1]."
+  - Tell them exactly which command to run next: "Run /NN-fern-NAME to continue."
+  - Apply the session ground rules below.
+
+IF they type "revisit [number]":
+  - Read that project's fern-context.md fully into context
+  - Confirm: "Loaded [agent_name] for [company_name]."
+  - List all 9 steps with ✓ next to completed ones (use the same field logic above)
+  - Ask: "Which step would you like to re-run?"
+  - When they answer, tell them to run that skill command.
+  - Apply the session ground rules below.
+
+IF they choose new project:
+  - Say: "Let's build something new. Run /01-fern-design to design your architecture and generate fern-context.md."
+  - Apply the session ground rules below.
+
+SESSION GROUND RULES (apply for all three paths):
+1. Work through one step at a time. When I run a skill, focus ONLY on that step.
+2. After each step, stop and wait for me to confirm it is working before moving on.
+3. If you need a value from a previous step, read fern-context.md first — check the current directory, then one level up. If it is not there, ask me. Never invent values.
+4. Keep responses focused. If you spot something outside the current step that could be improved, note it briefly but do not act on it.
+5. When a step is done, say "Step [N] complete — ready for Step [N+1] when you are."
 ```
 
 ---
 
-## Step order — run these in sequence
-
-**Build steps — run in order:**
+## Build steps — reference
 
 | Step | Command | What it does |
 |---|---|---|
@@ -58,14 +93,7 @@ and listing the 9 build steps.
 | 8 | `/08-fern-form` | Custom object + log form + real-time polling |
 | 9 | `/09-fern-dashboard` | Internal dashboard |
 
-**Support commands — use any time:**
-
 | Command | When to use |
 |---|---|
-| `/10-fern-debug` | When something breaks — real errors, real fixes |
-| `/11-fern-prep` | Morning of every demo — token refresh + checklist |
-
-**Tip:** Complete and test each step before running the next one.
-
-**To adapt for a new industry:** Edit `fern-context.md` in your parent
-directory and re-run any step — all values are read from that file.
+| `/10-fern-debug` | When something breaks |
+| `/11-fern-prep` | Morning of every demo — auto-refreshes token, checks health, generates demo script |
