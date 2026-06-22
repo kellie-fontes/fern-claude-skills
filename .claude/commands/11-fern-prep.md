@@ -115,10 +115,6 @@ echo "  https://${ORG_DOMAIN}.my.site.com/[your-site-path]"
 echo "Type 'give me my summary' — the agent should respond within 5 seconds."
 ```
 
-**How to run:**
-```
-bash token-refresh.sh
-```
 
 ---
 
