@@ -2,11 +2,6 @@
 
 Build the Apex backend that lets Experience Cloud guest users talk to Agentforce.
 
-## Instructions
-
-Run this in Claude Code from inside your Salesforce DX project directory.
-Claude will read `fern-context.md` automatically — no manual value replacement needed.
-
 ---
 
 ```
