@@ -3,11 +3,6 @@
 Connect the deployed MuleSoft API to Agentforce via External Service Registration,
 Named Credential, External Credential, and permission set.
 
-## Instructions
-
-Run this in Claude Code from inside your Salesforce DX project directory.
-Claude will read `fern-context.md` automatically — no manual value replacement needed.
-
 ---
 
 ```
