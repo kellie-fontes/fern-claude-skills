@@ -62,8 +62,8 @@ and listing the 9 build steps.
 
 | Command | When to use |
 |---|---|
-| `/fern-debug` | When something breaks — real errors, real fixes |
-| `/fern-prep` | Morning of every demo — token refresh + checklist |
+| `/10-fern-debug` | When something breaks — real errors, real fixes |
+| `/11-fern-prep` | Morning of every demo — token refresh + checklist |
 
 **Tip:** Complete and test each step before running the next one.
 
