@@ -45,6 +45,8 @@ you can derive from the architecture. Leave credential fields
 org_alias, org_domain) blank — I will fill those in before each step
 that needs them.
 
+When writing fern-context.md, derive and fill ALL fields you can from the architecture — including external_credential_name, named_credential_name, external_service_name, custom_setting, agent_controller, log_controller, log_object, plugin_name, all branding fields, all log object fields, and all dashboard fields. Do not leave these blank.
+
 After writing fern-context.md, run the following to auto-populate org credentials:
 1. Run: sf org list --json
 2. If exactly one org is found, extract its alias and instanceUrl. Write alias to org_alias and extract the subdomain (the part before .my.salesforce.com) to org_domain in fern-context.md.
@@ -84,12 +86,13 @@ child_endpoint_2:
 child_endpoint_3:
 routing_phrase_1:       # e.g. "how am I doing?" → summary
 routing_phrase_2:       # e.g. "tell me about Menopur" → child_endpoint_1
-cloudhub_url:           # filled after Step 3
+cloudhub_url:           # auto-populated in Step 3 after CloudHub deploy verified
 
 ## Salesforce Org
-org_alias:              # sf CLI alias
-org_domain:             # my.salesforce.com subdomain
-bot_id:                 # filled after Step 5B
+org_alias:              # auto-populated in Step 1 via sf org list
+org_domain:             # auto-populated in Step 1 via sf org list
+bot_id:                 # auto-populated in Step 5B via Tooling API after activation
+site_path:              # auto-populated in Step 7 via sf data query Network
 
 ## Salesforce Metadata Names
 external_credential_name:
@@ -141,14 +144,15 @@ org_alias:          # auto-populated from sf org list — fill if blank
 org_domain:         # auto-populated from sf org list — fill if blank (subdomain before .my.salesforce.com)
 ```
 
-Before running `/04-fern-wire`, add:
+Before running `/04-fern-wire`, confirm:
 ```
-cloudhub_url:     # from Step 3 output
+cloudhub_url:     # auto-written by Step 3 — verify it's present
 ```
 
-Before running `/06-fern-apex`, add:
+Before running `/06-fern-apex`, confirm:
 ```
-bot_id:           # from Step 5B — copy from Agent Builder URL after activating
+bot_id:           # auto-written by Step 5B via Tooling API — verify it's present
+                  # if missing: Setup → Agents → open agent in Agent Builder → copy 18-char ID from the URL
 ```
 
 ---
