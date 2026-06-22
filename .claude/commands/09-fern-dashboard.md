@@ -13,6 +13,7 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 Before proceeding, read fern-context.md and verify these fields are present and non-empty: org_alias, log_object, log_controller, dashboard_component, dashboard_fields, dashboard_timezone, aura_app_name, vf_page_name. If any are missing, list them and stop.
 
 Read fern-context.md — check the current directory first, then one level up.
+Every `{variable}` in these instructions is a placeholder — replace it with the matching value from fern-context.md before running any command or generating any code.
 
 Build an internal {internal_role} dashboard for managing pending
 {log_object} records.
