@@ -99,7 +99,7 @@ that Agentforce actually uses.
 
 ---
 
-## Step 5C — Grant the Agent User External Credential Access
+## Step 5C [MANUAL STEP] — Grant the Agent User External Credential Access
 
 The agent user runs every MuleSoft callout. Without the right permission set, callouts succeed
 in Apex (admin user) but silently fail when Agentforce executes them — the agent says
@@ -107,14 +107,9 @@ in Apex (admin user) but silently fail when Agentforce executes them — the age
 
 **Fix:**
 
-1. Find your External Credential permission set (e.g. `Retail_CRM_API_Access` or `FertilityEMR_API_Access`)
-2. Make sure it does NOT have `viewAllFields: true` on any object — this blocks assignment to EinsteinServiceAgent users
-3. Assign the permission set to the agent user via Apex:
-   ```apex
-   PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = 'Your_API_Access_PS' LIMIT 1];
-   User u = [SELECT Id FROM User WHERE Username = 'your_agent_user@org.ext' LIMIT 1];
-   insert new PermissionSetAssignment(AssigneeId = u.Id, PermissionSetId = ps.Id);
-   ```
+1. Go to **Setup → Permission Sets** → open your External Credential permission set (e.g. `FertilityEMR_API_Access`)
+2. Confirm it does **not** have `viewAllFields: true` on any object — this blocks assignment to bot users
+3. Click **Manage Assignments → Add Assignments** → select the agent user → **Assign**
 4. Test the callout directly from Apex using `callout:YourNamedCredential/path` — must return 200 before testing via chatbot
 
 **Named Credential HTTP vs HTTPS:**
