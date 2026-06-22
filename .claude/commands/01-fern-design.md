@@ -80,7 +80,7 @@ cloudhub_url:           # filled after Step 3
 ## Salesforce Org
 org_alias:              # sf CLI alias
 org_domain:             # my.salesforce.com subdomain
-bot_id:                 # filled after Step 4B
+bot_id:                 # filled after Step 5B
 
 ## Salesforce Metadata Names
 external_credential_name:
@@ -122,7 +122,7 @@ dashboard_fields:       # comma-separated display columns
 
 ## Step 2 — Fill in credentials
 
-Before running `/fern-api`, open `fern-context.md` and fill in:
+Before running `/02-fern-api`, open `fern-context.md` and fill in:
 ```
 client_id:
 client_secret:
@@ -131,14 +131,14 @@ org_alias:
 org_domain:
 ```
 
-Before running `/fern-wire`, add:
+Before running `/04-fern-wire`, add:
 ```
 cloudhub_url:     # from Step 3 output
 ```
 
-Before running `/fern-apex`, add:
+Before running `/06-fern-apex`, add:
 ```
-bot_id:           # from Step 4 output
+bot_id:           # from Step 5B — copy from Agent Builder URL after activating
 ```
 
 ---
