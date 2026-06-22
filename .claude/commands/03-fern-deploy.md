@@ -2,11 +2,6 @@
 
 Deploy the locally-built Mule app to CloudHub Sandbox so Salesforce has a live URL to connect to.
 
-## Instructions
-
-Run this in Claude Code from inside your Mule project directory.
-Claude will read `fern-context.md` automatically — no manual value replacement needed.
-
 ---
 
 ```
