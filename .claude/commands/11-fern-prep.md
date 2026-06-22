@@ -29,16 +29,15 @@ Give me:
 
 ## Your Demo Links
 
+These are built from your `fern-context.md` values — update that file and these resolve automatically when you run the demo script prompt above.
+
 | What | URL |
 |---|---|
-| Chatbot (persona view — incognito) | https://{org_domain}.my.site.com/[site-path] |
-| Internal Dashboard | https://[your-org].my.salesforce.com/apex/{vf_page_name} — **use org domain, NOT site domain** |
-| Agentforce Agent Builder | https://[your-org].lightning.force.com → Setup → Agents |
+| Chatbot (persona view — incognito) | https://{org_domain}.my.site.com/ |
+| Internal Dashboard | https://{org_domain}.my.salesforce.com/apex/{vf_page_name} — **use org domain, NOT site domain** |
+| Agentforce Agent Builder | https://{org_domain}.lightning.force.com → Setup → Agents |
 | Anypoint Runtime Manager | https://anypoint.mulesoft.com → Runtime Manager → Applications |
-
-**FertilityConnect values:**
-- Chatbot = https://kfontes-mule-agtforce-demo.my.site.com/fertilityconnect
-- Dashboard = /apex/NursingEMR
+| CloudHub test endpoint | {cloudhub_url}/{resource}/{persona_id} |
 
 ---
 
