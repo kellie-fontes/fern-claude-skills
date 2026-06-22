@@ -41,7 +41,7 @@ right endpoint for phrases like: {routing_phrase_1}, {routing_phrase_2}
 ---
 
 ## FertilityConnect values (reference example)
-- cloudhub_url = https://fertility-connect-emr.us-e1.cloudhub.io/api/v1
+- cloudhub_url = http://fertility-connect-emr.us-e1.cloudhub.io/api/v1
 - routing phrases = "how am I doing?" → summary, "tell me about Menopur" → medications
 - external_credential_name = FertilityEMRv2
 - named_credential_name = FertilityEMRApiv1
