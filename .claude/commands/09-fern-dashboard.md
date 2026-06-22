@@ -10,6 +10,8 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 ---
 
 ```
+Before proceeding, read fern-context.md and verify these fields are present and non-empty: org_alias, log_object, log_controller, dashboard_component, dashboard_fields, dashboard_timezone, aura_app_name, vf_page_name. If any are missing, list them and stop.
+
 Read fern-context.md — check the current directory first, then one level up.
 
 Build an internal {internal_role} dashboard for managing pending
@@ -38,6 +40,11 @@ Build an internal {internal_role} dashboard for managing pending
      $Lightning.createComponent
    - Mounts the dashboard LWC into a full-height div
    - Accessible at /apex/{vf_page_name} as a standalone internal URL
+
+After generating the dashboard LWC, Aura wrapper, and Visualforce page, deploy everything:
+sf project deploy start --source-dir force-app/main/default --target-org {org_alias}
+Wait for deployment to complete. On success, open the dashboard directly:
+sf org open --path /apex/{vf_page_name} --target-org {org_alias}
 ```
 
 ---

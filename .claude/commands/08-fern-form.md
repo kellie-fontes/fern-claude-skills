@@ -10,6 +10,8 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 ---
 
 ```
+Before proceeding, read fern-context.md and verify these fields are present and non-empty: org_alias, log_object, log_controller, form_component, chat_component, item_field, item_picklist, detail_field, occurred_at_field, persona_id_field. If any are missing, list them and stop.
+
 Read fern-context.md — check the current directory first, then one level up.
 
 I need a custom object {log_object} with these fields:
@@ -47,6 +49,10 @@ Also add a polling pattern to {chat_component} that:
   Status__c = 'Scheduled': "{confirmation_message}"
 - Stops polling when the component is disconnected
   to prevent memory leaks
+
+After generating the custom object metadata and LWC files, deploy everything:
+sf project deploy start --source-dir force-app/main/default --target-org {org_alias}
+Wait for the deployment to complete and report success or any errors.
 ```
 
 ---

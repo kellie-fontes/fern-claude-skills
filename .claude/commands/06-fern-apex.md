@@ -10,6 +10,8 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 ---
 
 ```
+Before proceeding, read fern-context.md and verify these fields are present and non-empty: org_alias, org_domain, bot_id, agent_controller, log_controller, custom_setting, log_object. If any are missing, list them and stop.
+
 Read fern-context.md — check the current directory first, then one level up.
 
 I need the Apex backend that lets Experience Cloud guest users
@@ -46,6 +48,10 @@ talk to Agentforce. Build the following:
    - https://{org_domain}.my.salesforce.com (bootstrap endpoint)
 
 Agent bot ID: {bot_id}
+
+After generating all Apex classes, custom settings, and remote site settings, deploy everything:
+sf project deploy start --source-dir force-app/main/default --target-org {org_alias}
+Wait for the deployment to complete and report success or any errors. Do not proceed past this step until deployment succeeds.
 ```
 
 ---

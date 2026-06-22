@@ -10,6 +10,8 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 ---
 
 ```
+Before proceeding, read fern-context.md and verify these fields are present and non-empty: client_id, client_secret, business_group_id, app_name, region. If any are missing, list them and stop — do not proceed until they are filled in.
+
 Read fern-context.md — check the current directory first, then one level up.
 
 My MuleSoft app is built and running locally in Anypoint Code Builder.
@@ -36,6 +38,12 @@ IMPORTANT: Use http://, not https://. CloudHub apps deployed with
 default config only listen on HTTP. The Salesforce Named Credential
 must also use http:// — if it says https://, all callouts will
 return 502.
+
+After confirming the app is running, verify automatically:
+1. Call mcp__mulesoft__list_applications and filter for {app_name}. Confirm its status is "RUNNING". If not running, report the status and stop.
+2. Run: curl -s "{cloudhub_url}/{resource}/{persona_id}" and confirm it returns HTTP 200 and non-empty JSON. This also warms the Micro worker so the first demo response is fast.
+3. Write the confirmed cloudhub_url directly into the cloudhub_url field in fern-context.md.
+Report the curl response so the user can see live mock data before wiring Salesforce to it.
 ```
 
 ---

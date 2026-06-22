@@ -10,6 +10,8 @@ and write a populated `fern-context.md` to the parent project directory.
 Replace the values below and run this prompt:
 
 ```
+Before proceeding, check that fern-context.md exists in the current directory or one level up. If it does not exist yet, that is expected for Step 1 — proceed with the design. If it does exist, read it to understand the existing architecture before making changes.
+
 I want to build a [industry] companion demo on Salesforce using
 Agentforce + MuleSoft + Experience Cloud.
 
@@ -42,6 +44,13 @@ you can derive from the architecture. Leave credential fields
 (client_id, client_secret, business_group_id, bot_id, cloudhub_url,
 org_alias, org_domain) blank — I will fill those in before each step
 that needs them.
+
+After writing fern-context.md, run the following to auto-populate org credentials:
+1. Run: sf org list --json
+2. If exactly one org is found, extract its alias and instanceUrl. Write alias to org_alias and extract the subdomain (the part before .my.salesforce.com) to org_domain in fern-context.md.
+3. If multiple orgs are found, list them and ask which one to use, then write the selected values.
+4. If no orgs are found, leave org_alias and org_domain blank and tell the user to run sf org login web first.
+5. Call mcp__mulesoft__get_platform_insights to retrieve the Anypoint business group ID. If successful, write the result to business_group_id in fern-context.md. If the call fails or returns no ID, leave it blank and note that the user must fill it in manually from Anypoint Platform → Access Management.
 
 ## Persona & Agent
 industry:

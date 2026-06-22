@@ -14,6 +14,8 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 ```
 Read fern-context.md — check the current directory first, then one level up.
 
+Before proceeding, verify these fields are present and non-empty: org_alias, org_domain, agent_label, agent_developer_name, plugin_name, persona_id, cloudhub_url. If any are missing, list them and stop.
+
 Create an Agentforce agent with the following configuration.
 Generate all required Salesforce metadata files.
 
@@ -95,7 +97,15 @@ that Agentforce actually uses.
 **Activate:**
 
 11. Click **Activate** — if you see "Configuration Issues Detected / We couldn't load the checklist", click **Ignore & Activate**
-12. After activation, note the bot ID from the URL (`/AiCopilot/copilotStudio.app#/cop/0Xx...`), write it into the `bot_id` field in `fern-context.md`, and update `RetailAgentController.cls`
+12. After activation, tell me you have activated the agent. I will automatically retrieve the bot ID.
+
+---
+
+After the user confirms activation, run:
+```
+sf api request rest --target-org {org_alias} "/services/data/v62.0/tooling/query?q=SELECT+Id+FROM+BotDefinition+WHERE+DeveloperName='{agent_developer_name}'"
+```
+Parse the Id from the response and write it to the `bot_id` field in `fern-context.md` automatically. Confirm to the user: "bot_id written to fern-context.md: [value]"
 
 ---
 
@@ -105,12 +115,30 @@ The agent user runs every MuleSoft callout. Without the right permission set, ca
 in Apex (admin user) but silently fail when Agentforce executes them — the agent says
 "I couldn't retrieve your information" with no error in the logs.
 
-**Fix:**
+**Fix (automated):**
 
-1. Go to **Setup → Permission Sets** → open your External Credential permission set (e.g. `FertilityEMR_API_Access`)
-2. Confirm it does **not** have `viewAllFields: true` on any object — this blocks assignment to bot users
-3. Click **Manage Assignments → Add Assignments** → select the agent user → **Assign**
-4. Test the callout directly from Apex using `callout:YourNamedCredential/path` — must return 200 before testing via chatbot
+1. Confirm the permission set does NOT have `viewAllFields: true` — run:
+   ```
+   sf data query --query "SELECT Id, Name FROM PermissionSet WHERE Name = '{external_credential_name}_API_Access'" --target-org {org_alias}
+   ```
+   If `viewAllFields` is a concern, note it to the user.
+2. Look up the permission set ID:
+   ```
+   sf data query --query "SELECT Id FROM PermissionSet WHERE Name LIKE '%API_Access%'" --target-org {org_alias}
+   ```
+3. Look up the agent user ID:
+   ```
+   sf data query --query "SELECT Id FROM User WHERE Username LIKE '%agent%' OR Profile.Name = 'Einstein Service Agent'" --target-org {org_alias}
+   ```
+4. Assign the permission set via REST:
+   ```
+   sf api request rest --target-org {org_alias} --method POST "/services/data/v62.0/sobjects/PermissionSetAssignment/" --body '{"AssigneeId":"[agent_user_id]","PermissionSetId":"[perm_set_id]"}'
+   ```
+5. Test the callout:
+   ```
+   sf apex run --target-org {org_alias} --apex-code "System.debug(JSON.serialize(Http.send(new HttpRequest(){{ setEndpoint('callout:{named_credential_name}/{resource}/{persona_id}'); setMethod('GET'); }})));"
+   ```
+   Confirm it returns HTTP 200 before testing via chatbot.
 
 **Named Credential HTTP vs HTTPS:**
 - CloudHub apps deployed with default config only listen on HTTP, not HTTPS
@@ -119,6 +147,37 @@ in Apex (admin user) but silently fail when Agentforce executes them — the age
   the mismatch is HTTP vs HTTPS
 - Either: update the Named Credential URL to `http://` in Setup → Named Credentials → Edit,
   or add an HTTPS listener to your MuleSoft app
+
+---
+
+## Generate cleanup-agent.sh
+
+After completing Step 5, generate a `cleanup-agent.sh` script in the project root using the following logic. Read `org_alias`, `agent_developer_name`, and `plugin_name` from `fern-context.md`.
+
+The script should:
+1. Query `GenAiPlannerDefinition` to find the planner whose `DeveloperName` ends in `_v1` (the one Agent Builder created)
+2. Query all `GenAiPlannerFunctionDef` records for that planner ID
+3. Identify and delete any record where the linked plugin is `EmployeeCopilot__AnswerQuestionsWithKnowledge`
+4. Print confirmation of what was deleted
+5. Print "Run this after every deactivate → activate cycle"
+
+Save as `cleanup-agent.sh` in the current directory. Make it executable.
+
+---
+
+## Auto-patch Topic Classification Description
+
+After Step 5B, automatically patch the `GenAiPluginDefinition` Classification Description to prevent "Sorry, I can't assist" routing failures:
+1. Query the plugin ID:
+   ```
+   sf api request rest --target-org {org_alias} "/services/data/v62.0/tooling/query?q=SELECT+Id,DeveloperName+FROM+GenAiPluginDefinition+WHERE+DeveloperName='{plugin_name}'"
+   ```
+2. Generate an exhaustive description using `routing_phrase_1`, `routing_phrase_2`, `child_endpoint_1`/`2`/`3`, and `persona_role` from `fern-context.md`. The description must cover every action category and natural trigger phrases.
+3. PATCH it:
+   ```
+   sf api request rest --target-org {org_alias} --method PATCH "/services/data/v62.0/tooling/sobjects/GenAiPluginDefinition/[plugin-id]" --body '{"Description":"[exhaustive description]"}'
+   ```
+Confirm the patch was applied.
 
 ---
 

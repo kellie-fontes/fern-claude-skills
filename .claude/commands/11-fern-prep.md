@@ -79,10 +79,16 @@ echo "Opening browser login for $ALIAS..."
 sf org login web --alias "$ALIAS" --instance-url "https://${ORG_DOMAIN}.my.salesforce.com" 2>&1 || true
 
 echo "Reading access token..."
-# Note: sf org display --json returns a redacted token — use auth show-access-token instead
-TOKEN=$(echo "y" | sf org auth show-access-token --target-org "$ALIAS" 2>&1 \
-  | grep "Access Token" | awk -F'│' '{print $3}' | xargs)
-
+# Try jq on credentials file first (more reliable than parsing CLI table output)
+SF_CREDS="$HOME/.sf/credentials.json"
+SFDX_CREDS="$HOME/.sfdx/sfdx-config.json"
+if command -v jq &>/dev/null && [ -f "$SF_CREDS" ]; then
+  TOKEN=$(jq -r --arg url "https://login.salesforce.com" '.[$url].accessToken // empty' "$SF_CREDS" 2>/dev/null)
+fi
+# Fallback: parse from sf auth show-access-token
+if [ -z "$TOKEN" ]; then
+  TOKEN=$(echo "y" | sf org auth show-access-token --target-org "$ALIAS" 2>&1 | grep -o 'Access Token.*' | awk '{print $3}' | xargs 2>/dev/null)
+fi
 if [ -z "$TOKEN" ]; then
   echo "ERROR: Could not read access token. Make sure you completed the browser login."
   exit 1
@@ -121,6 +127,12 @@ echo "Type 'give me my summary' — the agent should respond within 5 seconds."
 ## Pre-Demo Checklist
 
 **MuleSoft**
+
+Run these automated checks before the demo:
+1. Call mcp__mulesoft__list_applications and filter for {app_name} — confirm status is RUNNING.
+2. Run: curl -s "{cloudhub_url}/{resource}/{persona_id}" — confirm 200 + non-empty JSON. This also warms the Micro worker.
+If either check fails, report it immediately so the issue can be fixed before the audience arrives.
+
 - [ ] Log in to Anypoint Runtime Manager — confirm app shows as **Running**
 - [ ] Hit the CloudHub test endpoint — confirm it returns persona data
 - [ ] If the app is sleeping (Micro worker idles), send one request to wake it (~10 sec first response)

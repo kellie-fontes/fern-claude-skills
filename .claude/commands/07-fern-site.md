@@ -10,6 +10,8 @@ Claude will read `fern-context.md` automatically — no manual value replacement
 ---
 
 ```
+Before proceeding, read fern-context.md and verify these fields are present and non-empty: org_alias, org_domain, agent_controller, log_controller, chat_component, primary_color, secondary_color, trigger_phrases. If any are missing, list them and stop.
+
 Read fern-context.md — check the current directory first, then one level up.
 
 I need an Experience Cloud site with a custom LWC chat component
@@ -55,6 +57,10 @@ that lets guest users (no login required) talk to my Agentforce agent.
    - Use inline SVGs for all icons — no static resources
    - Define brand palette as CSS comments at top of each file
      so re-skinning for a new industry takes minutes
+
+After deploying the site and components, capture the site URL path automatically:
+sf data query --query "SELECT Id, Name, UrlPathPrefix FROM Network" --target-org {org_alias} --json
+Match the result to the site you just created. Write the UrlPathPrefix value to site_path in fern-context.md. Confirm: "site_path written to fern-context.md: [value]. Your chatbot URL will be: https://{org_domain}.my.site.com/[site_path]"
 ```
 
 ---
