@@ -131,13 +131,14 @@ dashboard_fields:       # comma-separated display columns
 
 ## Fill in credentials
 
-Before running `/02-fern-api`, open `fern-context.md` and fill in:
+Before running `/02-fern-api`, open `fern-context.md` and confirm these are filled in
+(most will be auto-populated — only fill any that are still blank):
 ```
-client_id:
-client_secret:
-business_group_id:
-org_alias:
-org_domain:
+client_id:          # Anypoint connected app client ID
+client_secret:      # Anypoint connected app client secret
+business_group_id:  # If blank: Anypoint Platform → Access Management → Business Groups → copy the ID from the URL
+org_alias:          # auto-populated from sf org list — fill if blank
+org_domain:         # auto-populated from sf org list — fill if blank (subdomain before .my.salesforce.com)
 ```
 
 Before running `/04-fern-wire`, add:
