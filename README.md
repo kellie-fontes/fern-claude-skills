@@ -13,18 +13,6 @@ The FertilityConnect values in each skill are a working reference example, not p
 
 > **Note:** `fern-context.md` is not included in this repo. It is generated in your project's parent directory when you run `/01-fern-design` and stays local — it contains credentials and org-specific values that should never be committed.
 
-## Reset Demo Data
-
-If your demo object has stale records from a previous run, clear them before going live:
-
-```bash
-bash reset-demo.sh
-```
-
-The script reads `fern-context.md` to know which org, object, persona ID field, and persona ID to target — no manual edits needed. It prompts for confirmation before deleting anything.
-
-Download it from the repo or copy it to your project directory alongside `token-refresh.sh`.
-
 ## Install
 
 Run this one command in your terminal:
@@ -98,6 +86,19 @@ Add the following to `~/.claude.json` under `mcpServers`:
 ```
 
 Run `/mcp` in Claude Code to confirm it's connected.
+
+## Reset Demo Data
+
+If your demo object has stale records from a previous run, clear them before going live:
+
+```bash
+bash reset-demo.sh
+```
+
+The script reads `fern-context.md` to know which org, object, persona ID field, and persona ID to target — no manual edits needed. It prompts for confirmation before deleting anything.
+
+Download it from the repo or copy it to your project directory alongside `token-refresh.sh`.
+
 
 ## Built by
 [@Kellie Fontes](https://github.com/kellie-fontes) — MuleSoft + Agentforce Better Together demo
