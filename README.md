@@ -1,6 +1,7 @@
 # Fern Claude Skills
 
-Claude Code skills for building the Fern (FertilityConnect) Agentforce + MuleSoft demo — and any demo like it.
+Claude Code skills for building the Fern (FertilityConnect) Agentforce + MuleSoft demo — and any demo like it. FertilityConnect (Fern) is a patient-facing Agentforce AI care companion for fertility patients — built as a proof of concept for the MuleSoft + Agentforce Better Together story in an HLS context. Built entirely with Claude Code, Fern connects Agentforce, MuleSoft, a LWC app built on Experience Cloud, and a mock EMR system hosted on Visualforce into a single end-to-end patient care journey. 
+
 
 Each skill reads from a `fern-context.md` file in your project directory — a single config file that holds your industry, persona, company, API names, and branding. To build a demo for a new industry:
 
