@@ -83,7 +83,17 @@ This requires the Salesforce UI — it takes about 5 minutes.
 - Scroll to **Apex Class Access** → click **Edit**
 - Add `{agent_controller}` and `{log_controller}` to the Enabled list → **Save**
 
-Once done, come back here and tell Claude: **"Site published"**
+Before telling Claude you're done, do a quick smoke test:
+
+**5. Verify the site loads**
+- Copy this URL: `https://{org_domain}.my.site.com/[the-path-you-set]`
+- Open it in an **incognito window** (so there's no cached login)
+- You should see the chat component and a greeting from {agent_name}
+  - If the page is blank → the LWC isn't deployed yet (Claude will deploy in 7C — that's expected)
+  - If you see a Salesforce login page → the site is set to Authenticated, not Guest. Go back to **Setup → Digital Experiences → All Sites** → click the site name → ensure it says **Active** (not Preview) and that the guest user profile is set
+  - If you see an error about Apex class access → re-check Step 4 above
+
+Once the site is spinning and the path is confirmed, tell Claude: **"Site published"**
 
 ---
 
