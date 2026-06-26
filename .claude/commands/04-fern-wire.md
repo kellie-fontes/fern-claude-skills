@@ -43,11 +43,29 @@ right endpoint for phrases like: {routing_phrase_1}, {routing_phrase_2}
 - named_credential_name = FertilityEMRApiv1
 - plugin_name = FertilityEMRPlugin
 
+## After deploying — verify the wiring works
+
+Before moving to Step 5, test the callout from Apex:
+
+1. In Salesforce, click the **gear icon → Developer Console**
+2. Click **Debug → Open Execute Anonymous Window**
+3. Paste and run:
+   ```apex
+   HttpRequest req = new HttpRequest();
+   req.setEndpoint('callout:{named_credential_name}/{resource}/{persona_id}');
+   req.setMethod('GET');
+   Http h = new Http();
+   HttpResponse res = h.send(req);
+   System.debug(res.getStatusCode() + ' ' + res.getBody());
+   ```
+4. In the logs panel, look for `200` and JSON data. That confirms Salesforce can reach MuleSoft.
+   - If you see `502` → the Named Credential URL is HTTPS but should be HTTP. Go to **Setup → Named Credentials → edit {named_credential_name}** and change `https://` to `http://`.
+   - If you see `401` or `403` → the External Credential permission set isn't assigned. Step 5C handles this automatically.
+
 ## Key lessons
 - The RAML spec operation descriptions are the agent's routing logic — write them as
   "Use when the {persona_role} asks [phrases]" not just "Returns [data]."
 - External Credential principal type MUST be **Anonymous** for a NoAuthentication API.
-  `NamedPrincipal` requires a stored per-user value — the Agentforce bot user has none,
-  so every function call fails silently. Anonymous = shared by all users, no value needed.
+  In Setup, this is under **Setup → External Credentials → New → Authentication Protocol: Custom → Parameter Groups: Anonymous** (NOT NamedPrincipal). NamedPrincipal requires a stored per-user value — the Agentforce bot user has none, so every function call fails silently.
 - After deploying the ExternalCredential, grant the bot user's permission set access to
   the Anonymous principal explicitly — without this the callout still fails.
