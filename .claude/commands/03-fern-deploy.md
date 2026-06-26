@@ -13,7 +13,19 @@ Every `{variable}` in these instructions is a placeholder — replace it with th
 My MuleSoft app is built and running locally in Anypoint Code Builder.
 I need to deploy it to CloudHub Sandbox so Salesforce can call it.
 
-Walk me through:
+Before touching pom.xml or running any deploy command:
+1. Call mcp__mulesoft__get_platform_insights or mcp__mulesoft__search_asset to retrieve
+   the list of supported CloudHub 2.0 Shared Space runtimes.
+2. Read the current runtime version from pom.xml.
+3. If the current version is NOT in the supported list, update it to the latest supported
+   4.x-java17 version from MCP. Print: "Runtime updated: [old] → [new] (MCP-verified)"
+4. If the current version IS supported, leave it unchanged. Print: "Runtime [version] confirmed supported."
+5. REGION LOCK: The region must match the value of `region` in fern-context.md.
+   Do NOT change the region for any reason — not to fix a runtime error, not as a suggestion.
+   If a deploy error mentions the region, report it to the user and stop. Changing the region
+   silently breaks the cloudhub_url endpoint that Salesforce is wired to.
+
+Then walk through:
 1. Verifying the pom.xml cloudHubDeployment config is correct —
    environment name, applicationName ({app_name}), workerType,
    region ({region}), businessGroupId ({business_group_id}),
