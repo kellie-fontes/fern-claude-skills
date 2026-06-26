@@ -106,13 +106,13 @@ Every Fern skill searches for `fern-context.md` in the current directory first, 
 **Run this first — every session:**
 
 | Command | What it does |
-|---|---|
+| --- | --- |
 | `/00-fern-start` | Run at the start of **every** Claude Code session — detects your existing projects and lets you resume, revisit, or start new |
 
 **Build steps — run in order:**
 
 | Step | Command | What it does |
-|---|---|---|
+| --- | --- | --- |
 | 1 | `/01-fern-design` | Design the full architecture + write fern-context.md |
 | 2 | `/02-fern-api` | Build the MuleSoft mock API in Anypoint Code Builder |
 | 3 | `/03-fern-deploy` | Deploy the Mule app to CloudHub Sandbox |
@@ -126,7 +126,7 @@ Every Fern skill searches for `fern-context.md` in the current directory first, 
 **Support commands:**
 
 | Command | When to use |
-|---|---|
+| --- | --- |
 | `/10-fern-debug` | When something breaks — real errors, real fixes |
 | `/11-fern-prep` | Morning of every demo — auto-refreshes the admin token, checks MuleSoft health, generates demo script and links |
 
