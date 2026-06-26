@@ -28,8 +28,10 @@ Agent definition (Bot):
 
 Agent version (BotVersion):
 - Company: {company_name}
-- Role: Describe what {agent_name} can do — what data it accesses
-  via {plugin_name} and what actions it can take
+- Role: One concise paragraph, strictly under 500 characters, describing what {agent_name} can do
+  and what data it accesses via {plugin_name}. No bullet points, no headers — plain prose only.
+  After generating it, print it labeled: "Role ([X] chars):" so the user can see the exact text
+  and character count. If it exceeds 500 characters, trim it before writing to metadata.
 - Tone: Casual
 - Small talk: disabled
 - Knowledge fallback: disabled
@@ -74,8 +76,10 @@ This part requires the UI — Salesforce doesn't support it via metadata. It tak
 
 **2. Create a Subagent**
 - In the left panel: **Subagents → New → New Subagent**
-- Give it a name (e.g. "{agent_name} Support") and a one-line description of what it does
+- Give it a short name (e.g. "{agent_name} Support") and a one-line description — keep it under 255 characters, this is not the full Role, just a brief label
 - If step 3 of the wizard says "No checklist steps returned" — that's normal, just save
+
+> **Note:** The agent's full Role description was already deployed via metadata in Step 5A — you do not need to paste anything into Agent Builder. If Agent Builder shows a Role field and it looks empty, that is a display quirk; the deployed value is already active.
 
 **3. Add your API actions**
 - Inside the subagent: **This Subagent's Actions tab → New → Add from Asset Library**
