@@ -35,7 +35,7 @@ I'm demoing {agent_name} to [audience] in [time]. Here's what works and what's b
 4. Demo Links — exact URLs built from fern-context.md:
    - Chatbot (open in incognito): https://{org_domain}.my.site.com/{site_path}
    - Internal Dashboard: https://{org_domain}.my.salesforce.com/apex/{vf_page_name}
-   - Agent Builder: https://{org_domain}.lightning.force.com → Setup → Agents
+   - Agent Builder: https://{org_domain}.lightning.force.com → Setup (gear icon) → search "Agents" → open your agent → Open in Agent Builder
    - Anypoint Runtime Manager: https://anypoint.mulesoft.com → Runtime Manager → Applications
    - CloudHub test endpoint: {cloudhub_url}/{resource}/{persona_id}
 5. Tabs to open before you start — using those exact links
@@ -56,7 +56,7 @@ After the automated checks pass:
 **Tabs to have open at demo start:**
 - [ ] Incognito tab — chatbot (persona view)
 - [ ] Admin tab — internal dashboard
-- [ ] Agent Builder — good for the "behind the scenes" moment
+- [ ] Agent Builder (Setup → search "Agents" → open agent) — good for the "behind the scenes" moment
 - [ ] Anypoint Runtime Manager — good for the MuleSoft story
 
 ---
