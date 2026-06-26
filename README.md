@@ -16,24 +16,41 @@ The FertilityConnect values in each skill are a working reference example, not p
 
 ## Install
 
-Run this one command in your terminal:
+There are two separate sets of skills to install. Do them in order.
+
+### Step 1 — Salesforce Extension skills (Salesforce tooling)
+
+These ship as part of the **Salesforce Extension for Claude Code** and auto-register when Claude Code detects an `sfdx-project.json` in your working directory.
+
+1. Install Claude Code: `npm install -g @anthropic-ai/claude-code`
+2. Install the Salesforce CLI (`sf`): `npm install -g @salesforce/cli`
+3. Open your Salesforce DX project folder in your terminal and run `claude`
+4. The Salesforce skills activate automatically — type `/` to confirm they're listed
+
+If they don't auto-register, install manually:
+```bash
+npx skills add forcedotcom/sf-skills --all
+```
+
+### Step 2 — Fern demo skills (this repo)
+
+Run this one command from any directory:
 
 ```bash
 curl -s https://raw.githubusercontent.com/kellie-fontes/fern-claude-skills/main/install.sh | bash
 ```
 
 The installer:
-- Downloads all 12 skill files to `~/.claude/commands/` so they appear in Claude Code's `/` menu
-- Downloads `reset-demo.sh` to your current directory (a utility script for wiping demo data before a live run)
+- Downloads all 12 Fern skill files to `~/.claude/commands/`
+- Downloads `reset-demo.sh` to your current directory
 - Prints the full command list and tells you where each file was saved
 
-Then open Claude Code and type `/fern` to see all Fern skills listed.
+Then type `/fern` in Claude Code to see all Fern skills listed.
 
-> **Skills not showing up?**
-> - These are Claude Code **slash commands**, not Salesforce CLI skills. Do not use `npx skills add` — that installs a completely different set of Salesforce developer tools and is unrelated to Fern.
-> - If you don't see `/fern` commands after running the installer, close and reopen Claude Code — it reads `~/.claude/commands/` on startup.
-> - To verify the files are there: `ls ~/.claude/commands/ | grep fern` — you should see 12 files.
-> - The commands are global and work from any directory — you do not need to be inside a specific project folder to use them.
+> **Fern skills not showing up?**
+> - Close and reopen Claude Code after running the installer — it reads `~/.claude/commands/` on startup.
+> - Verify: `ls ~/.claude/commands/ | grep fern` — you should see 12 files.
+> - Fern skills are global — they work from any directory, not just your Salesforce DX project folder.
 
 ## Skills
 
