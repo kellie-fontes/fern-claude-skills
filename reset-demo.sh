@@ -29,6 +29,13 @@ if [ -z "$ALIAS" ] || [ -z "$LOG_OBJECT" ] || [ -z "$PERSONA_ID" ] || [ -z "$PER
   exit 1
 fi
 
+# Verify the log object is deployed before running Apex
+if ! sf sobject describe --sobject "$LOG_OBJECT" --target-org "$ALIAS" --json > /dev/null 2>&1; then
+  echo "ERROR: ${LOG_OBJECT} is not deployed to ${ALIAS}."
+  echo "Run /06-fern-apex first to deploy the custom object, then retry."
+  exit 1
+fi
+
 echo "Org:        $ALIAS"
 echo "Object:     $LOG_OBJECT"
 echo "Scoped to:  ${PERSONA_ID_FIELD} = ${PERSONA_ID}"
