@@ -1,7 +1,6 @@
 # Fern Claude Skills
 
-Claude Code skills for building the Fern (FertilityConnect) Agentforce + MuleSoft demo — and any demo like it. FertilityConnect (Fern) is a patient-facing Agentforce AI care companion for fertility patients — built as a proof of concept for the MuleSoft + Agentforce Better Together story in an HLS context. Built entirely with Claude Code, Fern connects Agentforce, MuleSoft, a LWC app built on Experience Cloud, and a mock EMR system hosted on Visualforce into a single end-to-end patient care journey. 
-
+Claude Code skills for building the Fern (FertilityConnect) Agentforce + MuleSoft demo — and any demo like it. FertilityConnect (Fern) is a patient-facing Agentforce AI care companion for fertility patients — built as a proof of concept for the MuleSoft + Agentforce Better Together story in an HLS context. Built entirely with Claude Code, Fern connects Agentforce, MuleSoft, a LWC app built on Experience Cloud, and a mock EMR system hosted on Visualforce into a single end-to-end patient care journey.
 
 Each skill reads from a `fern-context.md` file in your project directory — a single config file that holds your industry, persona, company, API names, and branding. To build a demo for a new industry:
 
@@ -13,6 +12,41 @@ Each skill reads from a `fern-context.md` file in your project directory — a s
 The FertilityConnect values in each skill are a working reference example, not placeholders to edit.
 
 > **Note:** `fern-context.md` is not included in this repo. It is generated in your project's parent directory when you run `/01-fern-design` and stays local — it contains credentials and org-specific values that should never be committed.
+
+## Prerequisites
+
+**MuleSoft**
+- Anypoint Platform account with a CloudHub Sandbox environment
+- Anypoint Code Builder
+- Anypoint Connected App with `client_credentials` grant
+
+**Salesforce**
+- Salesforce org with Agentforce (Einstein Agent) license activated
+- Permissions to create LWCs, custom objects, external services, and named credentials
+- Salesforce CLI (`sf`): `npm install -g @salesforce/cli`
+
+**Claude Code**
+- Claude Code installed: `npm install -g @anthropic-ai/claude-code`
+- MuleSoft MCP server configured (see below)
+
+## MuleSoft MCP Server Setup
+
+Add the following to `~/.claude.json` under `mcpServers`:
+
+```json
+"mulesoft": {
+  "type": "stdio",
+  "command": "/opt/homebrew/bin/npx",
+  "args": ["-y", "@mulesoft/mcp-server", "start"],
+  "env": {
+    "ANYPOINT_CLIENT_ID": "[your-connected-app-client-id]",
+    "ANYPOINT_CLIENT_SECRET": "[your-connected-app-client-secret]",
+    "ANYPOINT_REGION": "PROD_US"
+  }
+}
+```
+
+Run `/mcp` in Claude Code to confirm it's connected before starting `/02-fern-api`.
 
 ## Install
 
@@ -81,41 +115,6 @@ Then type `/fern` in Claude Code to see all Fern skills listed.
 | `/10-fern-debug` | When something breaks — real errors, real fixes |
 | `/11-fern-prep` | Morning of every demo — auto-refreshes the admin token, checks MuleSoft health, generates demo script and links |
 
-## Prerequisites
-
-**MuleSoft**
-- Anypoint Platform account with a CloudHub Sandbox environment
-- Anypoint Code Builder
-- Anypoint Connected App with `client_credentials` grant
-
-**Salesforce**
-- Salesforce org with Agentforce (Einstein Agent) license activated
-- Permissions to create LWCs, custom objects, external services, and named credentials
-- Salesforce CLI (`sf`)
-
-**Claude Code**
-- Claude Code installed: `npm install -g @anthropic-ai/claude-code`
-- MuleSoft MCP server configured (see below)
-
-## MuleSoft MCP Server Setup
-
-Add the following to `~/.claude.json` under `mcpServers`:
-
-```json
-"mulesoft": {
-  "type": "stdio",
-  "command": "/opt/homebrew/bin/npx",
-  "args": ["-y", "@mulesoft/mcp-server", "start"],
-  "env": {
-    "ANYPOINT_CLIENT_ID": "[your-connected-app-client-id]",
-    "ANYPOINT_CLIENT_SECRET": "[your-connected-app-client-secret]",
-    "ANYPOINT_REGION": "PROD_US"
-  }
-}
-```
-
-Run `/mcp` in Claude Code to confirm it's connected.
-
 ## Reset Demo Data
 
 If your demo object has stale records from a previous run, clear them before going live:
@@ -127,7 +126,6 @@ bash reset-demo.sh
 The script reads `fern-context.md` to know which org, object, persona ID field, and persona ID to target — no manual edits needed. It prompts for confirmation before deleting anything.
 
 Downloaded automatically by `install.sh`. `token-refresh.sh` is written to your project directory the first time you run `/11-fern-prep`.
-
 
 ## Built by
 [@Kellie Fontes](https://github.com/kellie-fontes) — MuleSoft + Agentforce Better Together demo
