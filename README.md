@@ -27,7 +27,13 @@ The installer:
 - Downloads `reset-demo.sh` to your current directory (a utility script for wiping demo data before a live run)
 - Prints the full command list and tells you where each file was saved
 
-Then open Claude Code and type `/` to see all skills listed.
+Then open Claude Code and type `/fern` to see all Fern skills listed.
+
+> **Skills not showing up?**
+> - These are Claude Code **slash commands**, not Salesforce CLI skills. Do not use `npx skills add` — that installs a completely different set of Salesforce developer tools and is unrelated to Fern.
+> - If you don't see `/fern` commands after running the installer, close and reopen Claude Code — it reads `~/.claude/commands/` on startup.
+> - To verify the files are there: `ls ~/.claude/commands/ | grep fern` — you should see 12 files.
+> - The commands are global and work from any directory — you do not need to be inside a specific project folder to use them.
 
 ## Skills
 
