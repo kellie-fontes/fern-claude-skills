@@ -168,7 +168,7 @@ cloudhub_url:     # auto-written by Step 3 — verify it's present
 Before running `/06-fern-apex`, confirm:
 ```
 bot_id:           # auto-written by Step 5B via Tooling API — verify it's present
-                  # if missing: Setup → Agents → open agent in Agent Builder → copy 18-char ID from the URL
+                  # if missing: Setup (gear icon) → search "Agents" → open agent → Open in Agent Builder → copy 18-char ID from the URL
 ```
 
 ---
