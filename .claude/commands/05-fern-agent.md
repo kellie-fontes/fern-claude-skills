@@ -70,9 +70,13 @@ Do not attempt to write bot_id to fern-context.md here.
 
 This part requires the UI — Salesforce doesn't support it via metadata. It takes about 5 minutes.
 
+> **Can't find Agent Builder?** Don't search for it in the App Launcher — it won't appear there.
+> The only way in is through **Setup**. Type "Agents" in the Setup search box (not the App Launcher).
+
 **1. Open your agent**
-- Go to **Setup → Agents**
-- Click your agent name → **Open in Agent Builder**
+- Click the **gear icon** (top right of any Salesforce page) → **Setup**
+- In the Setup search box, type **Agents** → click **Agents** under Einstein
+- Find your agent in the list → click **Open in Agent Builder**
 
 **2. Create a Subagent**
 - In the left panel: **Subagents → New → New Subagent**
@@ -115,7 +119,7 @@ When the user says "Agent activated", run these four steps silently and report o
    sf api request rest --target-org {org_alias} "/services/data/v62.0/tooling/query?q=SELECT+Id+FROM+BotDefinition+WHERE+DeveloperName='{agent_developer_name}'"
    Parse the Id and write it to bot_id in fern-context.md. Read the file back to verify.
    Success → print "✓ bot_id saved: [value]"
-   Failure → print "bot_id could not be saved automatically — open Agent Builder, copy the 18-character ID from the URL bar, and paste it into bot_id in fern-context.md."
+   Failure → print "bot_id could not be saved automatically — go to Setup → search 'Agents' → open your agent in Agent Builder → copy the 18-character ID from the URL bar → paste it into bot_id in fern-context.md."
 
 2. CLEAN UP EMPLOYEECOPILOT
    Write cleanup-agent.sh using org_alias, agent_developer_name, and plugin_name from fern-context.md.
