@@ -22,6 +22,11 @@ Run this one command in your terminal:
 curl -s https://raw.githubusercontent.com/kellie-fontes/fern-claude-skills/main/install.sh | bash
 ```
 
+The installer:
+- Downloads all 12 skill files to `~/.claude/commands/` so they appear in Claude Code's `/` menu
+- Downloads `reset-demo.sh` to your current directory (a utility script for wiping demo data before a live run)
+- Prints the full command list and tells you where each file was saved
+
 Then open Claude Code and type `/` to see all skills listed.
 
 ## Skills
