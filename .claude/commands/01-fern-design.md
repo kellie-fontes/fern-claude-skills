@@ -7,7 +7,23 @@ and write a populated `fern-context.md` to the parent project directory.
 
 ## Step 1 — Describe your demo
 
-Replace the values below and run this prompt:
+Before showing the template, print exactly this to help the user fill it in:
+
+---
+**Before you fill in the template, here's what each flow should look like:**
+
+| Slot | Shape | Examples |
+|---|---|---|
+| **Flow 1** | Persona asks the agent to look something up | "Patient asks about upcoming appointments and lab results" · "Loan applicant checks their application status" · "Loyalty member asks for their points balance" |
+| **Flow 2** | Persona takes an action (logs, requests, submits) | "Patient logs a medication dose and requests a nurse callback" · "Applicant uploads a document and requests a status update" · "Member redeems points for a reward" |
+| **Flow 3** | Internal team reviews and responds | "Nurse reviews the log and schedules a follow-up" · "Loan officer reviews the document and approves the next step" · "Support agent confirms the redemption" |
+
+Each flow maps to one API endpoint — keep each one to a single sentence describing who does what.
+
+---
+Now fill in the template below and paste it back:
+
+---
 
 ```
 Before proceeding, check that fern-context.md exists in the current directory or one level up. If it does not exist yet, that is expected for Step 1 — proceed with the design. If it does exist, read it to understand the existing architecture before making changes.
