@@ -19,9 +19,9 @@ The persona is [name], a [role]. The AI companion is called [agent name].
 The internal team who uses the back-office dashboard is [internal role].
 
 Key flows I want to demo:
-1. [flow 1]
-2. [flow 2]
-3. [flow 3]
+1. [flow 1 — what does the persona ask or do? e.g. "Patient asks the agent about her upcoming appointments"]
+2. [flow 2 — what action does the persona take? e.g. "Patient logs a medication dose and requests a nurse callback"]
+3. [flow 3 — what does the internal team do in response? e.g. "Nurse reviews the log and schedules a follow-up"]
 
 Design the full architecture including:
 - MuleSoft: what mock API endpoints to build and what data model each needs
@@ -198,6 +198,20 @@ Build order (dependency chain, step by step)
 
 **2. `fern-context.md`** written to your parent project folder — all fields
 populated from the architecture. Credential fields left blank for you to fill.
+
+---
+
+## Flow examples across industries
+
+Each flow should map to one of these three shapes — pick what fits your industry:
+
+| Flow | Shape | Examples across industries |
+|---|---|---|
+| **Flow 1** | Persona asks the agent to look something up | "Patient asks about upcoming appointments and lab results" · "Loan applicant checks their application status" · "Loyalty member asks for their points balance and recent transactions" |
+| **Flow 2** | Persona takes an action (logs, requests, submits) | "Patient logs a medication dose and requests a nurse callback" · "Applicant uploads a document and requests a status update" · "Member redeems points for a reward" |
+| **Flow 3** | Internal team responds (reviews, schedules, approves) | "Nurse reviews the log and schedules a follow-up" · "Loan officer reviews the document and approves the next step" · "Support agent reviews the redemption and confirms fulfillment" |
+
+The three flows map directly to: (1) a GET summary endpoint, (2) a POST/action endpoint, (3) the internal dashboard. Keep each flow one sentence — Claude uses them to name the API endpoints, functions, and LWC components.
 
 ---
 
